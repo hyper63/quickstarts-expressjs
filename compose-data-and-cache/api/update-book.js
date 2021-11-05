@@ -3,7 +3,7 @@ const hyper = connect(process.env['HYPER'])()
 
 const passValueThru = x => x
 
-const updateDocToDB = doc => hyper.data.update(doc)
+const updateDocToDB = doc => hyper.data.update(doc.id, doc)
   .then(res => {
     console.log('updateDocToDB res', res)
     return res.ok ? doc : Promise.reject(res)

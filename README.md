@@ -4,7 +4,7 @@ Welcome to hyper expressjs quickstarts.  Each folder contains a complete quickst
 
 The best way to do these quickstarts is to use gitpod.io:
 
-🚀[Launch Workspace](https://gitpod.io#https://github.com/hyper63/quickstarts-expressjs/tree/master) 🚀
+🚀<a href="https://gitpod.io#https://github.com/hyper63/quickstarts-expressjs/tree/master" target="_blank">Launch Workspace</a> 🚀
 
 ## Quickstarts
 

@@ -1,12 +1,12 @@
 import connect from 'hyper-connect'
+import { propOr } from 'ramda'
+
 const hyper = connect(process.env['HYPER'])()
 
 const passValueThru = (x) => {
   console.log('passValueThru x', x)
   return x
 }
-
-import { propOr } from 'ramda'
 
 const errorResponse = (err) => {
   return { ok: false, msg: err.msg ? err.msg : 'none' }
@@ -30,7 +30,7 @@ const getBookCountFromCache = () => {
   return hyper.cache.get('stats').then((result) => {
     console.log(' hyper.cache.get(stats) result', 'result:', result)
     return result.ok === false
-      ? Promise.reject(key)
+      ? Promise.reject('stats')
       : propOr(null, 'bookCount', result)
   })
 }

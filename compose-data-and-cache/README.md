@@ -37,6 +37,7 @@ Learn how to:
     ```
     HYPER=[connection string here]
     ```
+
 - Within the terminal, ensure you are in the **compose-data-and-cache** directory.
 - Install dependencies 
 
@@ -52,6 +53,7 @@ Learn how to:
     npm start
     ```
 - The API should be running on port 3000.  Run the following curl command in your terminal to verify the API started successfully:
+
     ```sh
     curl localhost:3000/
     ```
@@ -67,25 +69,25 @@ Learn how to:
 Using curl, make several calls to the `POST /api/books` endpoint to create some books
 
 ```sh
-curl -X POST localhost:3000/api/books \ 
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-1","type":"book", "name":"War and Peace","author":"Leo Tolstoy","published":"1869" }'
 ```
 
 ```sh
-curl -X POST localhost:3000/api/books \ 
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-2","type":"book","name":"The Great Gatsby","author":"F. Scott Fitzgerald","published":"1925" }'
 ```
 
 ```sh
-curl -X POST localhost:3000/api/books \ 
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1965" }'
 ```
 
 ```sh
-curl -X POST localhost:3000/api/books \ 
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1998" }'
 ```
@@ -114,5 +116,3 @@ Make a call to the `DELETE /api/books/book-4` endpoint to delete a book:
 
 ```sh
 curl -X DELETE localhost:3000/api/books/book-4
-
-

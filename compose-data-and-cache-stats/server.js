@@ -15,16 +15,14 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/api/stats', getStats)
-app.delete('/api/stats', nukeStats);
+app.delete('/api/stats', nukeStats)
 
 app.get('/api/books/_query', queryBooks)
-app.post('/api/books', createBook);
+app.post('/api/books', createBook)
 
+app.get('/api/books/:id', getBook)
 
-app.get('/api/books/:id', getBook);
-
-
-app.delete('/api/books/:id', deleteBook);
+app.delete('/api/books/:id', deleteBook)
 app.put('/api/books/:id', updateBook)
 
 app.get('/', function (req, res) {

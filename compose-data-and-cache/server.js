@@ -11,13 +11,13 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.post('/api/books', createBook);
-app.get('/api/books/:id', getBook);
-app.delete('/api/books/:id', deleteBook);
+app.post('/api/books', createBook)
+app.get('/api/books/:id', getBook)
+app.delete('/api/books/:id', deleteBook)
 app.put('/api/books/:id', updateBook)
 
 app.get('/', function (req, res) {
   res.send({ name: 'Quickstart Node Express JS Cache', ok: true })
 })
-  
-  app.listen(3000)
+
+app.listen(3000)

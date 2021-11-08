@@ -12,7 +12,8 @@
     "ramda": "^0.27.1"
   },
   "scripts": {
-    "start": "nodemon -r dotenv/config -r ./register.cjs server.js"
+    "start": "nodemon -r dotenv/config -r ./register.cjs server.js",
+    "format": "prettier --write '**/*.{js,ts,tsx}'"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",

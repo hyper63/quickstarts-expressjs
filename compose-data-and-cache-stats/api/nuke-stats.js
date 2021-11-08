@@ -2,18 +2,18 @@ import connect from 'hyper-connect'
 
 const hyper = connect(process.env['HYPER'])()
 
-
-const removeCacheValue = key => hyper.cache.remove(key)
-  .then(result => {
-    return result.ok === true ? result :  Promise.reject(key) 
+const removeCacheValue = (key) =>
+  hyper.cache.remove(key).then((result) => {
+    return result.ok === true ? result : Promise.reject(key)
   })
 
-
-const passValueThru = x => x
-const errorResponse = err => {ok: false, err}
+const passValueThru = (x) => x
+const errorResponse = (err) => {
+  ok: false, err
+}
 
 // get - fallback to data if not in cache
-const nukeStats = () => 
+const nukeStats = () =>
   Promise.resolve('stats')
     .then(removeCacheValue)
     .then(passValueThru, errorResponse)

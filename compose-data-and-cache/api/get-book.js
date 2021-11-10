@@ -1,17 +1,15 @@
-import connect from 'hyper-connect'
+import { connect } from "hyper-connect";
 
-const hyperConnectionString = process.env['HYPER']
 
-if (!hyperConnectionString) {
+if (!process.env.HYPER) {
   console.log('****************')
   console.log(
-    "ERROR:  MISSING HYPER CONNECTION STRING.  See the section titled 'Setup' in the README.md ",
-    { hyperConnectionString },
+    "ERROR:  MISSING HYPER CONNECTION STRING.  See the section titled 'Setup' in the README.md "
   )
   console.log('****************')
 }
 
-const hyper = connect(hyperConnectionString)()
+const hyper = connect(process.env.HYPER);
 
 const readFromDB = (id) => hyper.data.get(id)
 

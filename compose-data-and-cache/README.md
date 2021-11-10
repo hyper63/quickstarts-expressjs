@@ -4,7 +4,7 @@
 
 In this quickstart, you will find a REST API built with expressjs and hyper cloud.  This API let's you add, update, get, and delete books from hyper's data and cache services.   When you add a book, the API will store the book into a hyper database and cache the book.  When you retrieve a book, the API will first check to see if the book resides in cache, and if so, retrieves the book from the cache rather than the database.  This makes your API performant while keeping demand off your transactional data store. It's a classic win-win. Updating and deleting books will also update the cache. 
 
-## Need Help
+## Need Help?
 
 Be sure to checkout our [workshops](https://github.com/hyper63/workshops-expressjs) for a guided tour of common use cases. 
 

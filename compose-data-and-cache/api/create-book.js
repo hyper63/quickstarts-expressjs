@@ -1,10 +1,7 @@
-import connect from 'hyper-connect'
-const hyper = connect(process.env['HYPER'])()
+import { connect } from "hyper-connect";
+const hyper = connect(process.env.HYPER);
 
-const always = (v) => () => v
 const passValueThru = (x) => x
-
-//console.log(process.env["HYPER"])
 
 const addDocToDB = (doc) =>
   hyper.data.add(doc).then((res) => {

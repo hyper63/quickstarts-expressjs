@@ -1,5 +1,6 @@
 import { connect } from "hyper-connect";
 import { propOr } from 'ramda'
+
 const hyper = connect(process.env.HYPER);
 
 const passValueThru = (x) => {
@@ -20,6 +21,12 @@ const addDocToDB = (doc) =>
 const addDocToCache = (doc) =>
   hyper.cache.add(doc.id, doc).then((res) => {
     console.log('addDocToCache res', res)
+    return res.ok ? doc : Promise.reject(res)
+  })
+
+const addAuthorBookDocToCache = (doc) =>
+  hyper.cache.add(`author-${doc.author}-${doc.id}`, doc).then((res) => {
+    console.log('addAuthorBookDocToCache res', res)
     return res.ok ? doc : Promise.reject(res)
   })
 
@@ -45,6 +52,7 @@ const incrementCacheBookCount = () =>
 const cacheAdd = (doc) =>
   Promise.resolve(doc)
     .then(addDocToDB)
+    .then(addAuthorBookDocToCache)
     .then(addDocToCache)
     .then(incrementCacheBookCount)
     .catch(errorResponse)

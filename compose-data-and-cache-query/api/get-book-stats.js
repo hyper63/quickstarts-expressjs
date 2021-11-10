@@ -4,8 +4,10 @@ If the count does not exist, we will query the database using a function called 
   to get a book count followed by seeding the cache with this book count using 
   a function called `setBookCountToCache`.   
 */
+
 import { connect } from "hyper-connect";
 import { length, propOr } from 'ramda'
+
 const hyper = connect(process.env.HYPER);
 
 const passValueThru = (x) => {

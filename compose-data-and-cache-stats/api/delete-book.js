@@ -1,7 +1,6 @@
-import connect from 'hyper-connect'
+import { connect } from "hyper-connect";
 import { propOr } from 'ramda'
-
-const hyper = connect(process.env['HYPER'])()
+const hyper = connect(process.env.HYPER);
 
 const always = (v) => () => v
 

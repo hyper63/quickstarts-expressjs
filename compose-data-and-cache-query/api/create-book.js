@@ -55,7 +55,7 @@ const incrementCacheBookCount = () =>
     passValueThru,
   )
 
-// cacheAdd - Add to data and cache and then increment bookCount stats
+// cacheAdd - Add to database and cache to support search by author, then cache doc and then increment book count stats
 const cacheAdd = (doc) =>
   Promise.resolve(doc)
     .then(addDocToDB)

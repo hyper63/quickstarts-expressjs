@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this quickstart, you will find a REST API built with expressjs and hyper cloud that builds on the previous [compose-data-and-cache-stats](../compose-data-and-cache-stats) quickstart.  Everytime you add/remove a book document to the database, we will add/remove a cache entry to support a 'get books by author' query.  As a query is made to our expressjs REST API via `GET /api/books/_query` we will check for a `author` query string: example:  `GET /api/books/_query?author=Tolstoy&limit=5`.  If the `author` query string exists then we will query the cache service for all books by the specified author.  If no results are found in the cache, we will fall back to querying the database.  This makes your API performant while keeping demand off your transactional data store. It's yet another classic win for the hyper cache service. 
+In this quickstart, you will find a REST API built with expressjs and hyper cloud that builds on the previous [compose-data-and-cache-stats](../compose-data-and-cache-stats) quickstart.  Everytime you add/remove a book document to the database, we will add/remove a cache entry to support a 'get books by author' query.  As a query is made to our expressjs REST API via `GET /api/books/_query` we will check for a `author` query string: example:  `GET /api/books/_query?author=Richard%20Adams`.  If the `author` query string exists then we will query the cache service for all books by the specified author.  If no results are found in the cache, we will fall back to querying the database.  This makes your API performant while keeping demand off your transactional data store. It's yet another classic win for the hyper cache service. 
 
 ## Need Help?
 

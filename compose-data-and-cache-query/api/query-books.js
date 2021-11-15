@@ -25,6 +25,10 @@ const errorResponse = (err) => {
   return { ok: false, msg: err.msg ? err.msg : 'none' }
 }
 
+/* 
+query the cache service for all books by the specified author.  
+If no results are found in the cache, we will fall back to querying the database.
+*/
 const queryBooksByAuthor = ({ type, limit, author }) =>
   Promise.resolve(author)
     .then(queryCacheByAuthor)
@@ -33,8 +37,12 @@ const queryBooksByAuthor = ({ type, limit, author }) =>
 
 export default async function (req, res) {
   const type = 'book'
+
+
   // safely get query param named 'limit', if not there, default to 1000.  Convert query string to integer.
   const limit = parseInt(pathOr(1000, ['query', 'limit'], req), 10)
+
+  /* If the `author` query string exists then we will query books by author */
   const author = pathOr(null, ['query', 'author'], req)
 
   let books = author

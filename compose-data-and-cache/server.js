@@ -5,7 +5,6 @@ import getBook from './api/get-book.js'
 import createBook from './api/create-book.js'
 import deleteBook from './api/delete-book.js'
 import updateBook from './api/update-book.js'
-import strangeness from './api/strangeness.js'
 const app = express()
 
 app.use(cors())

@@ -1,11 +1,13 @@
-import { connect } from "hyper-connect";
+import { connect } from 'hyper-connect'
 import { propOr } from 'ramda'
-const hyper = connect(process.env.HYPER);
+const hyper = connect(process.env.HYPER)
 
 const passValueThru = (x) => {
   console.log('passValueThru x', x)
   return x
 }
+
+const always = (v) => () => v
 
 const errorResponse = (err) => {
   return { ok: false, msg: err.msg ? err.msg : 'none' }
@@ -14,11 +16,11 @@ const errorResponse = (err) => {
 const addDocToDB = (doc) =>
   hyper.data.add(doc).then((res) => {
     console.log('addDocToDB res', res)
-    return res.ok ? doc : Promise.reject(res)
+    return res.ok ? { ok: true, id: doc.id } : Promise.reject(res)
   })
 
 const addDocToCache = (doc) =>
-  hyper.cache.add(doc.id, doc).then((res) => {
+  hyper.cache.add(doc.id, doc, '1d').then((res) => {
     console.log('addDocToCache res', res)
     return res.ok ? doc : Promise.reject(res)
   })
@@ -37,7 +39,7 @@ const getBookCountFromCache = () => {
 const incrementCacheBookCount = () =>
   getBookCountFromCache().then(
     (currentBookCount) =>
-      hyper.cache.set('stats', { bookCount: currentBookCount + 1 }),
+      hyper.cache.set('stats', { bookCount: currentBookCount + 1 }, '1d'),
     passValueThru,
   )
 
@@ -45,8 +47,10 @@ const incrementCacheBookCount = () =>
 const cacheAdd = (doc) =>
   Promise.resolve(doc)
     .then(addDocToDB)
+    .then(always(doc))
     .then(addDocToCache)
     .then(incrementCacheBookCount)
+    .then(() => ({ ok: true, id: doc.id }))
     .catch(errorResponse)
 
 export default async function (req, res) {

@@ -1,5 +1,5 @@
-import { connect } from "hyper-connect";
-const hyper = connect(process.env.HYPER);
+import { connect } from 'hyper-connect'
+const hyper = connect(process.env.HYPER)
 
 const passValueThru = (x) => x
 
@@ -9,7 +9,8 @@ const addDocToDB = (doc) =>
     return res.ok ? doc : Promise.reject(res)
   })
 
-const addDocToCache = (doc) => hyper.cache.add(doc.id, doc).then(passValueThru)
+const addDocToCache = (doc) =>
+  hyper.cache.add(doc.id, doc, '1d').then(passValueThru)
 
 const errorResponse = (err) => {
   ok: false, err

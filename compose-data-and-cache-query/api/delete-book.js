@@ -1,10 +1,12 @@
-import { connect } from "hyper-connect";
-import { propOr } from 'ramda'
+import { connect } from 'hyper-connect'
+import { propOr, toLower } from 'ramda'
+import slugify from 'slugify'
 
-const hyper = connect(process.env.HYPER);
+const slug = (item) => toLower(slugify(item))
+
+const hyper = connect(process.env.HYPER)
 
 const always = (v) => () => v
-const passValueThru = (x) => x
 
 const errorResponse = (err) => {
   return { ok: false, msg: err.msg ? err.msg : 'none' }
@@ -21,31 +23,24 @@ const getBookCountFromCache = () => {
   })
 }
 
-const decrementCacheBookCount = () =>
-  getBookCountFromCache().then((cnt) =>
-    hyper.cache.set('stats', { bookCount: cnt - 1 }),
-  )
+const decrementCacheBookCount = (cnt) =>
+  hyper.cache.set('stats', { bookCount: cnt < 1 ? 0 : cnt - 1 })
 
 const deleteDocFromDB = (id) =>
   hyper.data.remove(id).then((res) => {
     console.log('deleteDocFromDB res', res)
-    return res.ok ? id : Promise.reject(res)
+    return res.ok ? { ok: true, id } : Promise.reject(res)
   })
 
-// `author-${doc.author}-${doc.id}`
-const deleteQueryDocFromCache = (doc) => hyper.cache.remove(`author-${doc.author}-${doc.id}`)
+const deleteQueryDocFromCache = (doc) =>
+  hyper.cache.remove(`author-${slug(doc.author)}-${doc.id}`)
 
-const deleteDocFromCache = (id) =>  hyper.cache.remove(id)
+const deleteDocFromCache = (id) => hyper.cache.remove(id)
 
-const getDocFromDB = (id) => hyper.data.get(id)
-    .then(doc => doc.ok === false ? Promise.reject(id) : doc)
-
-const getDocFromCache = (id) =>
-  hyper.cache.get(id).then((doc) => {
-    const isDocInCache = doc.id === id
-    console.log(`getDocFromCache doc ${id} in cache? ${isDocInCache}`)
-    return doc.ok === false ? Promise.reject(id) : doc
-  })
+const getDocFromDB = (id) =>
+  hyper.data
+    .get(id)
+    .then((doc) => (doc.ok === false ? Promise.reject(id) : doc))
 
 const remove = (id) =>
   Promise.resolve(id)
@@ -54,27 +49,11 @@ const remove = (id) =>
     .then(always(id), always(id))
     .then(deleteDocFromCache)
     .then(always(id), always(id))
+    .then(getBookCountFromCache)
+    .then(decrementCacheBookCount)
+    .then(always(id), always(id))
     .then(deleteDocFromDB)
-    .then(decrementCacheBookCount, errorResponse)
     .catch(errorResponse)
-
-// const remove = (id) =>
-//   hyper.cache
-//     .remove(id)
-//     .then(always(id), always(id))
-//     .then(deleteQueryDocFromCache)
-//     .then(always(id), always(id))
-//     .then(deleteDocFromDB)
-//     .then(decrementCacheBookCount, errorResponse)
-//     .catch(errorResponse)
-
-// const remove = (id) =>
-//   hyper.cache
-//     .remove(id)
-//     .then(always(id), always(id))
-//     .then(deleteDocFromDB)
-//     .then(decrementCacheBookCount, errorResponse)
-//     .catch(errorResponse)
 
 export default async function (req, res) {
   console.log('deleting book: ', req.params.id)

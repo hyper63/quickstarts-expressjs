@@ -5,10 +5,10 @@ If the count does not exist, we will query the database using a function called 
   a function called `setBookCountToCache`.   
 */
 
-import { connect } from "hyper-connect";
-import { length, propOr } from 'ramda'
+import { connect } from 'hyper-connect'
+import { length, propOr, pathOr } from 'ramda'
 
-const hyper = connect(process.env.HYPER);
+const hyper = connect(process.env.HYPER)
 
 const passValueThru = (x) => {
   console.log('passValueThru x:', x)
@@ -68,7 +68,19 @@ const getStats = (key) =>
     .then(passValueThru, errorResponse)
     .catch(errorResponse)
 
+const resetStats = (key) =>
+  Promise.resolve(key).then(getBookCountFromDB).catch(errorResponse)
+
 export default async function (req, res) {
-  const stats = await getStats('stats')
+  let stats
+  const doResetStats = pathOr(null, ['query', 'reset'], req)
+
+  if (doResetStats && doResetStats === 'true') {
+    console.log('resetting stats from db count')
+    stats = await resetStats('stats')
+  } else {
+    stats = await getStats('stats')
+  }
+
   return res.send({ stats: { bookCount: stats } })
 }

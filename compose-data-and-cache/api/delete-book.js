@@ -1,5 +1,5 @@
-import { connect } from "hyper-connect";
-const hyper = connect(process.env.HYPER);
+import { connect } from 'hyper-connect'
+const hyper = connect(process.env.HYPER)
 
 const always = (v) => () => v
 

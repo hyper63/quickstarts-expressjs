@@ -29,4 +29,4 @@ app.get('/', function (req, res) {
   res.send({ name: 'Quickstart Node Express JS Cache Stats!', ok: true })
 })
 
-app.listen(3001)
+app.listen(3000)

@@ -1,6 +1,6 @@
-import { connect } from "hyper-connect";
+import { connect } from 'hyper-connect'
 import { pathOr } from 'ramda'
-const hyper = connect(process.env.HYPER);
+const hyper = connect(process.env.HYPER)
 
 const query = ({ type, limit }) => hyper.data.query({ type }, { limit })
 

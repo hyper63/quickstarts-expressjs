@@ -1,15 +1,14 @@
-import { connect } from "hyper-connect";
-
+import { connect } from 'hyper-connect'
 
 if (!process.env.HYPER) {
   console.log('****************')
   console.log(
-    "ERROR:  MISSING HYPER CONNECTION STRING.  See the section titled 'Setup' in the README.md "
+    "ERROR:  MISSING HYPER CONNECTION STRING.  See the section titled 'Setup' in the README.md ",
   )
   console.log('****************')
 }
 
-const hyper = connect(process.env.HYPER);
+const hyper = connect(process.env.HYPER)
 
 const readFromDB = (id) => hyper.data.get(id)
 
@@ -17,6 +16,7 @@ const isDocCached = (id) =>
   hyper.cache.get(id).then((result) => {
     const isDocInCache = result.id === id
     console.log(`retrieved doc ${id} from cache? ${isDocInCache}`)
+    console.log('isDocCached result', result)
     return result.ok === false ? Promise.reject(id) : result
   })
 

@@ -57,10 +57,10 @@ Learn how to:
     npm start
     ```
 
-- The API should be running on port 3001.  Run the following curl command in your terminal to verify the API started successfully:
+- The API should be running on port 3000.  Run the following curl command in your terminal to verify the API started successfully:
 
     ```sh
-    curl localhost:3001/
+    curl localhost:3000/
     ```
 
     You should see a response like this:
@@ -74,55 +74,55 @@ Learn how to:
 Using curl, make several calls to the `POST /api/books` endpoint to create some books
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-1","type":"book", "name":"War and Peace","author":"Leo Tolstoy","published":"1869" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-2","type":"book","name":"The Great Gatsby","author":"F. Scott Fitzgerald","published":"1925" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1965" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1998" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-5","type":"book","name":"A Separate Peace","author":"John Knowles","published":"1965" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-6","type":"book","name":"Watership Down","author":"Richard Adams","published":"1972" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-7","type":"book","name":"The Hunt for Red October","author":"Tom Clancy","published":"1984" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-8","type":"book","name":"Patriot Games","author":"Tom Clancy","published":"1987" }'
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
+curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-9","type":"book","name":"Clear and Present Danger","author":"Tom Clancy","published":"1989" }'
 ```
@@ -132,13 +132,13 @@ curl -X POST localhost:3001/api/books \
 ## Query Books
 
 ```sh
-curl localhost:3001/api/books/_query
+curl localhost:3000/api/books/_query
 ```
 
 Query with `limit` query parameter.
 
 ```sh
-curl localhost:3001/api/books/_query?limit=5
+curl localhost:3000/api/books/_query?limit=5
 ```
 
 ## Get book stats 
@@ -146,7 +146,7 @@ curl localhost:3001/api/books/_query?limit=5
 Make a call to the `GET /api/books/stats` endpoint to retrieve the book stats including the `bookCount`:
 
 ```sh
-curl localhost:3001/api/books/stats
+curl localhost:3000/api/books/stats
 ```
 
 ## Get a book
@@ -154,7 +154,7 @@ curl localhost:3001/api/books/stats
 Make a call to the `GET /api/books/book-3` endpoint to retrieve a book:
 
 ```sh
-curl localhost:3001/api/books/book-3 
+curl localhost:3000/api/books/book-3 
 ```
 
 ## Update a book
@@ -162,7 +162,7 @@ curl localhost:3001/api/books/book-3
 Make a call to the `PUT /api/books/book-4` endpoint to update the `published` date to `1997`:
 
 ```sh
-curl -X PUT localhost:3001/api/books/book-4 \ 
+curl -X PUT localhost:3000/api/books/book-4 \ 
 -H 'Content-Type: application/json' \
 -d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1997" }'
 ```
@@ -172,4 +172,4 @@ curl -X PUT localhost:3001/api/books/book-4 \
 Make a call to the `DELETE /api/books/book-4` endpoint to delete a book:
 
 ```sh
-curl -X DELETE localhost:3001/api/books/book-4
+curl -X DELETE localhost:3000/api/books/book-4

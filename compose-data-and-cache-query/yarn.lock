@@ -1013,6 +1013,11 @@
   "resolved" "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.5.tgz"
   "version" "3.0.5"
 
+"slugify@^1.6.2":
+  "integrity" "sha512-XMtI8qD84LwCpthLMBHlIhcrj10cgA+U/Ot8G6FD6uFuWZtMfKK75JO7l81nzpFJsPlsW6LT+VKqWQJW3+6New=="
+  "resolved" "https://registry.npmjs.org/slugify/-/slugify-1.6.2.tgz"
+  "version" "1.6.2"
+
 "statuses@>= 1.5.0 < 2", "statuses@~1.5.0":
   "integrity" "sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow="
   "resolved" "https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz"

@@ -1,6 +1,6 @@
-import { connect } from "hyper-connect";
+import { connect } from 'hyper-connect'
 import { propOr } from 'ramda'
-const hyper = connect(process.env.HYPER);
+const hyper = connect(process.env.HYPER)
 
 const always = (v) => () => v
 
@@ -21,21 +21,29 @@ const getBookCountFromCache = () => {
 
 const decrementCacheBookCount = () =>
   getBookCountFromCache().then((cnt) =>
-    hyper.cache.set('stats', { bookCount: cnt - 1 }),
+    hyper.cache.set('stats', { bookCount: cnt < 1 ? 0 : cnt - 1 }, '1d'),
   )
 
 const deleteDocFromDB = (id) =>
   hyper.data.remove(id).then((res) => {
     console.log('deleteDocFromDB res', res)
-    return res.ok ? id : Promise.reject(res)
+    return res.ok ? { ok: true, id } : Promise.reject(res)
+  })
+
+const deleteDocFromCache = (id) =>
+  hyper.cache.remove(id).then((res) => {
+    console.log('deleteDocFromCache res', res)
+    return res.ok ? { ok: true, id } : Promise.reject(res)
   })
 
 const remove = (id) =>
-  hyper.cache
-    .remove(id)
-    .then(always(id), always(id))
+  Promise.resolve(id)
     .then(deleteDocFromDB)
-    .then(decrementCacheBookCount, errorResponse)
+    .then(always(id))
+    .then(deleteDocFromCache)
+    .then(always(id))
+    .then(decrementCacheBookCount)
+    .then(() => ({ ok: true, id }))
     .catch(errorResponse)
 
 export default async function (req, res) {

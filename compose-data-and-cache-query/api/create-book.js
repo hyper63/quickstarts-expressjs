@@ -1,7 +1,12 @@
-import { connect } from "hyper-connect";
-import { propOr } from 'ramda'
+import { connect } from 'hyper-connect'
+import { propOr, toLower } from 'ramda'
+import slugify from 'slugify'
 
-const hyper = connect(process.env.HYPER);
+const hyper = connect(process.env.HYPER)
+
+const slug = (item) => toLower(slugify(item))
+
+const always = (v) => () => v
 
 const passValueThru = (x) => {
   console.log('passValueThru x', x)
@@ -15,7 +20,9 @@ const errorResponse = (err) => {
 const addDocToDB = (doc) =>
   hyper.data.add(doc).then((res) => {
     console.log('addDocToDB res', res)
-    return res.ok ? doc : Promise.reject(res)
+
+    // => { ok: true, id: 'book-5' }
+    return res.ok ? { ok: true, id: doc.id } : Promise.reject(res)
   })
 
 const addDocToCache = (doc) =>
@@ -25,7 +32,7 @@ const addDocToCache = (doc) =>
   })
 
 const addAuthorBookDocToCache = (doc) =>
-  hyper.cache.add(`author-${doc.author}-${doc.id}`, doc).then((res) => {
+  hyper.cache.add(`author-${slug(doc.author)}-${doc.id}`, doc).then((res) => {
     console.log('addAuthorBookDocToCache res', res)
     return res.ok ? doc : Promise.reject(res)
   })
@@ -52,9 +59,11 @@ const incrementCacheBookCount = () =>
 const cacheAdd = (doc) =>
   Promise.resolve(doc)
     .then(addDocToDB)
+    .then(always(doc))
     .then(addAuthorBookDocToCache)
     .then(addDocToCache)
     .then(incrementCacheBookCount)
+    .then(() => ({ ok: true, id: doc.id }))
     .catch(errorResponse)
 
 export default async function (req, res) {

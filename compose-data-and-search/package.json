@@ -1,5 +1,5 @@
 {
-  "name": "quickstart-node-expressjs-cache-query",
+  "name": "quickstart-node-expressjs-search",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -9,8 +9,7 @@
     "express": "^4.17.1",
     "hyper-connect": "^0.1.5",
     "node-fetch": "^3.0.0",
-    "ramda": "^0.27.1",
-    "slugify": "^1.6.2"
+    "ramda": "^0.27.1"
   },
   "scripts": {
     "start": "nodemon -r dotenv/config server.js",

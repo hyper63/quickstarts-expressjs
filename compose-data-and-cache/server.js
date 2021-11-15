@@ -16,7 +16,7 @@ app.delete('/api/books/:id', deleteBook)
 app.put('/api/books/:id', updateBook)
 
 app.get('/', function (req, res) {
-  res.send({ name: 'Quickstart Node Express JS Cache', ok: true })
+  res.send({ name: 'Quickstart Node Express JS Compose Data and Cache', ok: true })
 })
 
 app.listen(3000)

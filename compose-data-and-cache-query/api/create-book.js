@@ -32,9 +32,10 @@ const addDocToCache = (doc) =>
   })
 
 const addAuthorBookDocToCache = (doc) =>
-  hyper.cache.add(`author-${slug(doc.author)}-${doc.id}`, doc).then((res) => {
-    console.log('addAuthorBookDocToCache res', res)
-    return res.ok ? doc : Promise.reject(res)
+  hyper.cache.add(`author-${slug(doc.author)}-${doc.id}`, doc)
+    .then((res) => {
+      console.log('addAuthorBookDocToCache res', res)
+      return res.ok ? doc : Promise.reject(res)
   })
 
 const getBookCountFromCache = () => {

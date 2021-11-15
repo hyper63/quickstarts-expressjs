@@ -33,7 +33,7 @@ app.put('/api/books/:id', updateBook)
 
 app.get('/', function (req, res) {
   res.send({
-    name: '"Quickstart Node Express JS Cache Query for the Win!',
+    name: 'Quickstart Node Express JS Compose Data and Cache Stats and Cache Query',
     ok: true,
   })
 })

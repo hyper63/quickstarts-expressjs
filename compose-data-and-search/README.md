@@ -1,8 +1,9 @@
-# Compose Data and Cache Quickstart
+# Compose Data and Search Quickstart
 
 ## Introduction
 
-In this quickstart, you will find a REST API built with expressjs and hyper cloud.  This API let's you add, update, get, and delete books from hyper's data and cache services.   When you add a book, the API will store the book into a hyper database and cache the book.  When you retrieve a book, the API will first check to see if the book resides in cache, and if so, retrieves the book from the cache rather than the database.  This makes your API performant while keeping demand off your transactional data store. It's a classic win-win. Updating and deleting books will also update the cache. 
+In this quickstart, you will find a REST API built with expressjs and hyper cloud.  This API let's you add, update, get, and delete books from hyper's data service and search service.  As part of this quickstart, we will configure a search service instances that supports searching books by author.  As a search is made to our expressjs REST API via `GET api/books/_search` we will check for a `author` query string: example: `GET api/books/_search?author=Frank%20Herbert`.
+
 
 ## Need Help?
 
@@ -22,8 +23,9 @@ Here's what you need to know:
 
 Learn how to:
 
-- Compose hyper cloud's data and cache backend services with the [Data API](https://docs.hyper.io/cloud/data-api) and [Cache API](https://docs.hyper.io/cloud/cache-api) and [hyper-connect](https://docs.hyper.io/cloud/hyper-connect) SDK 
+- Compose hyper cloud's data and search backend services with the [Data API](https://docs.hyper.io/cloud/data-api) and [Search API](https://docs.hyper.io/cloud/search-api) and the[hyper-connect](https://docs.hyper.io/cloud/hyper-connect) SDK 
 - [Create a hyper cloud application](https://docs.hyper.io/cloud/applications#zl-creating-a-new-hyper-application).
+- Create a new search instance named "default" within our hyper cloud application.
 - Obtain a [connection string](https://docs.hyper.io/cloud/app-keys#6s-copying-the-key-secret-and-connection-string) from your [app key](https://docs.hyper.io/cloud/app-keys).
 - Set up the `HYPER` environment variable for `hyper-connect`.
 
@@ -31,14 +33,21 @@ Learn how to:
 
 - Go to [https://dashboard.hyper.io](https://dashboard.hyper.io) and sign in with your github account.
 - [Create a hyper cloud application](https://docs.hyper.io/cloud/applications#zl-creating-a-new-hyper-application)
-- Create a **.env** file within the **compose-data-and-cache** directory.
+- Create a **.env** file within the **compose-data-and-search** directory.
 - Copy the [connection string](https://docs.hyper.io/cloud/app-keys#6s-copying-the-key-secret-and-connection-string) and place it in the **.env** file
 
     ```
     HYPER=[connection string here]
     ```
+- [Add a search service](https://docs.hyper.io/cloud/adding-a-search-service) and provide the following details within the **Add Search Service** add form.  This will create a search service instance named `default` and create an index based on the `author` field.  This way we can search for books by author.  Search results will return the `id`, `name`, and `published` fields.
 
-- Within the terminal, ensure you are in the **compose-data-and-cache** directory.
+    | Field           | Value               |
+    |-----------------|---------------------|
+    | Service Name    | default             |
+    | Fields to index | author              |
+    | Fields to store | id, name, published |
+
+- Within the terminal, ensure you are in the **compose-data-and-search** directory.
 - Install dependencies 
 
     ```sh
@@ -47,40 +56,28 @@ Learn how to:
 
 ## Start Up
 
-- Within the terminal, ensure you are in the **compose-data-and-cache** directory.
+- Within the terminal, ensure you are in the **compose-data-and-search** directory.
 - start the API:
+
     ```sh
     npm start
     ```
-- The API should be running on port 3000.  Run the following curl command in your terminal to verify the API started successfully:
+- The API should be running on port 3001.  Run the following curl command in your terminal to verify the API started successfully:
 
     ```sh
-    curl localhost:3000/
+    curl localhost:3001/
     ```
 
     You should see a response like this:
 
     ```sh
-    {"name":"Quickstart Node Express JS Cache","ok":true}
+    {"name":"Quickstart Node Express JS Compose Data and Search","ok":true}
     ```
 
 ## Create some books
 
-Using curl, make several calls to the `POST /api/books` endpoint to create some books
+Using curl, make several calls to the `POST /api/books` endpoint to create some books.  Three books are from Frank Herber, author of the Dune series.  The last book is from Dr. Suess.
 
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id":"book-1","type":"book", "name":"War and Peace","author":"Leo Tolstoy","published":"1869" }'
-```
-
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id":"book-2","type":"book","name":"The Great Gatsby","author":"F. Scott Fitzgerald","published":"1925" }'
-
-
-```
 
 ```sh
 curl -X POST localhost:3001/api/books \
@@ -91,38 +88,27 @@ curl -X POST localhost:3001/api/books \
 ```sh
 curl -X POST localhost:3001/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1998" }'
-```
-
-
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id":"book-5","type":"book","name":"A Separate Peace","author":"John Knowles","published":"1965" }'
+-d '{ "id": "book-20", "type": "book", "name": "Children of Dune", "author": "Frank Herbert", "published": "1975" }'
 ```
 
 ```sh
 curl -X POST localhost:3001/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-6","type":"book","name":"Watership Down","author":"Richard Adams","published":"1972" }'
+-d '{ "id": "book-21", "type": "book", "name": "Dune Messiah", "author": "Frank Herbert", "published": "1969" }'
 ```
 
 ```sh
 curl -X POST localhost:3001/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-7","type":"book","name":"The Hunt for Red October","author":"Tom Clancy","published":"1984" }'
+-d '{ "id":"book-22","type":"book","name":"Horton Hears a Who!","author":"Dr. Suess","published":"1955" }'
 ```
 
-```sh
-curl -X POST localhost:3000/api/books \
--H 'Content-Type: application/json' \
--d '{ "id":"book-8","type":"book","name":"Patriot Games","author":"Tom Clancy","published":"1987" }'
-```
+## Search Books
+
+As books are added into the database, entries are made in the search service.  Make a call to retreive books by author from service service.
 
 ```sh
-curl -X POST localhost:3000/api/books \
--H 'Content-Type: application/json' \
--d '{ "id":"book-9","type":"book","name":"Clear and Present Danger","author":"Tom Clancy","published":"1989" }'
+curl localhost:3001/api/books/_search?author=Frank%20Herbert 
 ```
 
 ## Get a book
@@ -135,17 +121,17 @@ curl localhost:3000/api/books/book-3
 
 ## Update a book
 
-Make a call to the `PUT /api/books/book-4` endpoint to update the `published` date to `1997`:
+Make a call to the `PUT /api/books/book-3` endpoint to update the `published` date to `1997`:
 
 ```sh
-curl -X PUT localhost:3000/api/books/book-4 \ 
+curl -X PUT localhost:3000/api/books/book-3 \ 
 -H 'Content-Type: application/json' \
--d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1997" }'
+-d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1997" }'
 ```
 
 ## Delete a book
 
-Make a call to the `DELETE /api/books/book-4` endpoint to delete a book:
+Make a call to the `DELETE /api/books/book-3` endpoint to delete a book:
 
 ```sh
-curl -X DELETE localhost:3000/api/books/book-4
+curl -X DELETE localhost:3000/api/books/book-3

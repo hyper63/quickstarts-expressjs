@@ -25,29 +25,6 @@ const addDocToDB = (doc) => {
 
 }
   
-
-  //Add document to search index
-
-  /*
-The request body contains two properties:
-
-key - string - this is the unique identifier for the search index
-doc - object - this is the document that will be added to the index.
-
-
-{
-    "key": "ghostbusters-1984",
-    "doc": {
-        "id": "ghostbusters-1984",
-        "type": "movie",
-        "title": "Ghostbusters",
-        "year": "1984"
-    }
-}
-  */
-
-
-
 const addDocToSearchIndex = (doc) =>
     hyper.search.add(doc.id, doc)
     .then((res) => {

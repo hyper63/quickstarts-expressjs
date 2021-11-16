@@ -32,8 +32,7 @@ const errorResponse = (err) => {
 // get - fallback to data if not in cache
 const get = (id) =>
   Promise.resolve(id)
-    .then(isDocCached)
-    .then(passValueThru, readFromDB)
+    .then(readFromDB)
     .catch(errorResponse)
 
 export default async function (req, res) {

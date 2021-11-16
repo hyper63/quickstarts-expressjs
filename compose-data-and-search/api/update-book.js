@@ -9,27 +9,26 @@ const updateDocToDB = (doc) =>
     return res.ok ? doc : Promise.reject(res)
   })
 
-const updateDocToCache = (doc) =>
-  hyper.search.update(doc.id, doc)
+const updateDocToSearch = (doc) => hyper.search.update(doc.id, doc)
 
-  //hyper.search.update(doc.id, doc).then(passValueThru)
+//hyper.search.update(doc.id, doc).then(passValueThru)
 
 const errorResponse = (err) => {
   ok: false, err
 }
 
-// cacheUpdate - update doc to data and cache
-const cacheUpdate = (doc) =>
+// searchUpdate - update doc to data and searcy
+const searchUpdate = (doc) =>
   Promise.resolve(doc)
     .then(updateDocToDB)
-    .then(updateDocToCache)
+    .then(updateDocToSearch)
     .catch(errorResponse)
 
-    // .then(updateDocToCache, passValueThru)
+// .then(updateDocToCache, passValueThru)
 
 export default async function (req, res) {
   console.log('update-book', req.body)
 
-  const result = await cacheUpdate(req.body)
+  const result = await searchUpdate(req.body)
   return res.send(result)
 }

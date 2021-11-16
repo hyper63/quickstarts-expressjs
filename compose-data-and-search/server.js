@@ -19,9 +19,11 @@ app.get('/api/books/:id', getBook)
 app.delete('/api/books/:id', deleteBook)
 app.put('/api/books/:id', updateBook)
 
-
 app.get('/', function (req, res) {
-  res.send({ name: 'Quickstart Node Express JS Compose Data and Search', ok: true })
+  res.send({
+    name: 'Quickstart Node Express JS Compose Data and Search',
+    ok: true,
+  })
 })
 
 app.listen(3001)

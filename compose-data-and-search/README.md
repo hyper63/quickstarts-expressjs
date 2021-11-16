@@ -116,7 +116,7 @@ curl localhost:3001/api/books/_search?author=Frank%20Herbert
 Make a call to the `GET /api/books/book-3` endpoint to retrieve a book:
 
 ```sh
-curl localhost:3000/api/books/book-3 
+curl localhost:3001/api/books/book-3 
 ```
 
 ## Update a book
@@ -124,7 +124,7 @@ curl localhost:3000/api/books/book-3
 Make a call to the `PUT /api/books/book-3` endpoint to update the `published` date to `1997`:
 
 ```sh
-curl -X PUT localhost:3000/api/books/book-3 \ 
+curl -X PUT localhost:3001/api/books/book-3 \
 -H 'Content-Type: application/json' \
 -d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1997" }'
 ```
@@ -134,4 +134,5 @@ curl -X PUT localhost:3000/api/books/book-3 \
 Make a call to the `DELETE /api/books/book-3` endpoint to delete a book:
 
 ```sh
-curl -X DELETE localhost:3000/api/books/book-3
+curl -X DELETE localhost:3001/api/books/book-3
+```

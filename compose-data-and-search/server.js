@@ -16,7 +16,7 @@ app.use(express.json())
 app.get('/api/books/_search', searchByAuthor)
 
 app.post('/api/books', createBook)
-app.get('/api/books/:id', getBookSearch)
+app.get('/api/books/:id', getBookFromSearch)
 app.delete('/api/books/:id', deleteBook)
 app.put('/api/books/:id', updateBook)
 

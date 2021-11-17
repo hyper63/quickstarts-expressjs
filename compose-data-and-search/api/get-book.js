@@ -11,7 +11,6 @@ if (!process.env.HYPER) {
 const hyper = connect(process.env.HYPER)
 
 const readFromDB = (id) => {
-  console.log('readFromDB id', id)
   return hyper.data.get(id)
 }
 
@@ -19,7 +18,6 @@ const errorResponse = (err) => {
   ok: false, err
 }
 
-// get - fallback to data if not in cache
 const get = (id) => Promise.resolve(id).then(readFromDB).catch(errorResponse)
 
 export default async function (req, res) {

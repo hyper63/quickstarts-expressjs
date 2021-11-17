@@ -11,6 +11,6 @@ const del = (id) => deSearch(id)
 
 export default async function (req, res) {
   console.log('deleting book: ', req.params.id)
-  const book = await del(req.params.id)
-  return res.send(book)
+  const result = await del(req.params.id)
+  return res.send(result)
 }

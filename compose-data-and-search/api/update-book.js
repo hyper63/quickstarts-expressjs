@@ -6,22 +6,33 @@ const passValueThru = (x) => x
 const updateDocToDB = (doc) =>
   hyper.data.update(doc.id, doc).then((res) => {
     console.log('updateDocToDB res', res)
+    return res.ok ? res : Promise.reject(res)
+  })
+
+const addDocToSearchIndex = (doc) =>
+  hyper.search.add(doc.id, doc).then((res) => {
+    console.log('addDocToSearchIndex res', res)
     return res.ok ? doc : Promise.reject(res)
   })
 
-const updateDocToSearch = (doc) => hyper.search.update(doc.id, doc)
-
-//hyper.search.update(doc.id, doc).then(passValueThru)
+const updateDocToSearch = (doc) =>
+  hyper.search
+    .remove(doc.id)
+    .then((res) => {
+      console.log('updateDocToSearch remove doc result', res)
+      return res.ok ? doc : Promise.reject(res)
+    })
+    .then(addDocToSearchIndex)
 
 const errorResponse = (err) => {
   ok: false, err
 }
 
-// searchUpdate - update doc to data and searcy
+// searchUpdate - update doc to data and search
 const searchUpdate = (doc) =>
   Promise.resolve(doc)
-    .then(updateDocToDB)
     .then(updateDocToSearch)
+    .then(updateDocToDB)
     .catch(errorResponse)
 
 // .then(updateDocToCache, passValueThru)

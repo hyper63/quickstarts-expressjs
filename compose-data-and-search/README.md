@@ -39,7 +39,7 @@ Learn how to:
     ```
     HYPER=[connection string here]
     ```
-- [Add a search service](https://docs.hyper.io/cloud/adding-a-search-service) and provide the following details within the **Add Search Service** add form.  This will create a search service instance named `default` and create an index based on the `author` field.  This way we can search for books by author.  Search results will return the `id`, `name`, and `published` fields.
+- [Add a search service](https://docs.hyper.io/cloud/adding-a-search-service) and provide the following details within the **Add Search Service** form.  This will create a search service instance named `default` and create an index based on the `author` field.  This way we can search for books by author.  
 
     | Field           | Value               |
     |-----------------|---------------------|

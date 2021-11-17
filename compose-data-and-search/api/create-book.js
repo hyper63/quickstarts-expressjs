@@ -36,7 +36,7 @@ const errorResponse = (err) => {
 const searchAdd = (doc) =>
   Promise.resolve(doc)
     .then(addDocToDB)
-    .then(addDocToSearchIndex)
+    .then(addDocToSearchIndex, passValueThru)
     .catch(errorResponse)
 
 export default async function (req, res) {

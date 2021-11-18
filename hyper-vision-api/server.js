@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 
-import getBookFromDB from './api/data/get.js'
-// import createBook from './api/create-book.js'
-// import deleteBook from './api/delete-book.js'
-// import updateBook from './api/update-book.js'
+import getDataFromDB from './api/data/get.js'
+import addDataToDB from './api/data/create.js'
+// import deleteDataFromDB from './api/data/delete.js'
+// import updateDataToDB from './api/data/update.js'
 // import searchByAuthor from './api/search-by-author.js'
 
 // import getBookFromSearch from './api/get-book-search.js'
@@ -15,18 +15,18 @@ app.use(express.json())
 
 // app.get('/api/books/_search', searchByAuthor)
 
-// app.post('/api/books', createBook)
-app.get('/api/books/:id', getBookFromDB)
-// app.delete('/api/books/:id', deleteBook)
-// app.put('/api/books/:id', updateBook)
+app.post('/api/data', addDataToDB)
+app.get('/api/data/:id', getDataFromDB)
+// app.delete('/api/data/:id', deleteDataFromDB)
+// app.put('/api/data/:id', updateDataToDB)
 
 app.get('/', function (req, res) {
   res.send({
-    name: 'Hyper Vision API', comm
+    name: 'Hyper Vision API',
     ok: true,
   })
 })
 
 const PORT = 3001
 
-app.listen(PORT, null, () => console.log(`listening on PORT: ${PORT}`))
+app.listen(PORT, null, () => console.log(`hyper-vision-api is listening on PORT: ${PORT}`))

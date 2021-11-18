@@ -10,18 +10,9 @@ if (!process.env.HYPER) {
 
 const hyper = connect(process.env.HYPER)
 
-const readFromDB = (id) => {
-  return hyper.data.get(id)
-}
-
-const errorResponse = (err) => {
-  ok: false, err
-}
-
-const get = (id) => Promise.resolve(id).then(readFromDB).catch(errorResponse)
-
 export default async function (req, res) {
-  console.log('getting book from db: ', req.params.id)
-  const book = await get(req.params.id)
-  return res.send(book)
+  console.log('getting data from db: ', req.params.id)
+  const result = await hyper.data.get(req.params.id)
+  console.log("get data from db result", result)
+  return res.send(result)
 }

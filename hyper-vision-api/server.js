@@ -3,6 +3,7 @@ import cors from 'cors'
 
 import getDataFromDB from './api/data/get.js'
 import addDataToDB from './api/data/create.js'
+import updateDataToDB from './api/data/update.js'
 // import deleteDataFromDB from './api/data/delete.js'
 // import updateDataToDB from './api/data/update.js'
 // import searchByAuthor from './api/search-by-author.js'
@@ -17,8 +18,9 @@ app.use(express.json())
 
 app.post('/api/data', addDataToDB)
 app.get('/api/data/:id', getDataFromDB)
+app.put('/api/data/:id', updateDataToDB)
 // app.delete('/api/data/:id', deleteDataFromDB)
-// app.put('/api/data/:id', updateDataToDB)
+
 
 app.get('/', function (req, res) {
   res.send({

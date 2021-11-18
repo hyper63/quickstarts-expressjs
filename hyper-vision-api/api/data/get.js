@@ -17,6 +17,6 @@ const hyper = connect(process.env.HYPER)
 export default async function (req, res) {
   console.log('data: get: ', req.params.id)
   const result = await hyper.data.get(req.params.id)
-  console.log("data: get result", result)
+  console.log('data: get result', result)
   return res.send(result)
 }

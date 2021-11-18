@@ -1,9 +1,9 @@
 import { connect } from 'hyper-connect'
-import {getReqQueryLimit} from '../../lib/get-req-query-limit.js'
-//import {getReqQueryParam} from '../../lib/get-req-query-param.js'
+import { getReqQueryLimit } from '../../lib/get-req-query-limit.js'
+import { getReqQueryParam } from '../../lib/get-req-query-param.js'
+import { createRequestOptions } from '../../lib/create-req-options.js'
 
 const hyper = connect(process.env.HYPER)
-
 
 /* docs: https://docs.hyper.io/cloud/list-documents
 Querystring parameters [optional]
@@ -17,15 +17,21 @@ descending - {true|false} - determines the order of the list sorted on the 'id' 
 
 export default async function (req, res) {
 
-  // safely get query param named 'limit', if not there, default to 1000.  Convert query string to integer.
+  console.log('req.query', req.query)
   const limit = getReqQueryLimit(req)
+  console.log('limit', limit)
 
-  console.log('data: list: limit', limit)
+  const startkey = getReqQueryParam('startkey', null, req)
+  console.log('startkey', startkey)
+
+  console.log('before carwash', { limit, startkey })
+  const options = createRequestOptions({ limit, startkey })
+
+  console.log('data: list: options', options)
   console.log('data: list: req.query', req.query)
 
-  //const author = pathOr(null, ['query', 'author'], req)
+  const result = await hyper.data.list(options)
 
-  const result = await hyper.data.list({limit})
-  console.log("data: list result", result)
+  console.log('data: list result', result)
   return res.send(result)
 }

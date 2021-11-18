@@ -1,3 +1,5 @@
-import {pathOr, curry} from 'ramda'
+import { pathOr, curry } from 'ramda'
 
-export const getReqQueryParam = curry((req, queryParam, defaultVal = null ) => pathOr(defaultVal, ['query', queryParam], req))
+export const getReqQueryParam = curry((queryParam, defaultVal = null, req) =>
+  pathOr(defaultVal, ['query', queryParam], req),
+)

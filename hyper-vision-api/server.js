@@ -24,7 +24,6 @@ app.get('/api/data/:id', getDataFromDB)
 app.put('/api/data/:id', updateDataToDB)
 app.delete('/api/data/:id', deleteDataFromDB)
 
-
 app.get('/', function (req, res) {
   res.send({
     name: 'Hyper Vision API',
@@ -34,4 +33,6 @@ app.get('/', function (req, res) {
 
 const PORT = 3001
 
-app.listen(PORT, null, () => console.log(`hyper-vision-api is listening on PORT: ${PORT}`))
+app.listen(PORT, null, () =>
+  console.log(`hyper-vision-api is listening on PORT: ${PORT}`),
+)

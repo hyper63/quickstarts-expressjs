@@ -67,3 +67,19 @@ Learn how to:
     ```sh
     {"name":"Hyper Vision API","ok":true}
     ```
+
+## Sample Data Curl Commands
+
+
+```sh
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
+
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-5", "title": "Meatballs", "type": "movie", "year": "1979"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-6", "title": "Matrix", "type": "movie", "year": "1999"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-7", "title": "Usual Suspects", "type": "movie", "year": "1995"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-8", "title": "Super Troopers", "type": "movie", "year": "2001"}'
+
+```

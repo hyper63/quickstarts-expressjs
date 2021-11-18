@@ -22,7 +22,7 @@ app.get('/api/books/:id', getBookFromDB)
 
 app.get('/', function (req, res) {
   res.send({
-    name: 'Hyper Vision API',
+    name: 'Hyper Vision API', comm
     ok: true,
   })
 })

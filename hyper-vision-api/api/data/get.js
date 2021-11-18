@@ -8,6 +8,10 @@ if (!process.env.HYPER) {
   console.log('****************')
 }
 
+/*
+docs: https://docs.hyper.io/cloud/retrieve-a-document-by-id
+*/
+
 const hyper = connect(process.env.HYPER)
 
 export default async function (req, res) {

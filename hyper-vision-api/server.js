@@ -5,6 +5,8 @@ import getDataFromDB from './api/data/get.js'
 import addDataToDB from './api/data/create.js'
 import updateDataToDB from './api/data/update.js'
 import deleteDataFromDB from './api/data/delete.js'
+import listDataFromDB from './api/data/list.js'
+
 // import updateDataToDB from './api/data/update.js'
 // import searchByAuthor from './api/search-by-author.js'
 
@@ -16,6 +18,7 @@ app.use(express.json())
 
 // app.get('/api/books/_search', searchByAuthor)
 
+app.get('/api/data', listDataFromDB)
 app.post('/api/data', addDataToDB)
 app.get('/api/data/:id', getDataFromDB)
 app.put('/api/data/:id', updateDataToDB)

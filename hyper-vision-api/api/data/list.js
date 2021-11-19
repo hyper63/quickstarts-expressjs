@@ -16,15 +16,13 @@ descending - {true|false} - determines the order of the list sorted on the 'id' 
 */
 
 export default async function (req, res) {
-
-  console.log('req.query', req.query)
+  //console.log('req.query', req.query)
   const limit = getReqQueryLimit(req)
-  console.log('limit', limit)
+  //console.log('limit', limit)
 
   const startkey = getReqQueryParam('startkey', null, req)
-  console.log('startkey', startkey)
+  //console.log('startkey', startkey)
 
-  console.log('before carwash', { limit, startkey })
   const options = createRequestOptions({ limit, startkey })
 
   console.log('data: list: options', options)
@@ -32,6 +30,6 @@ export default async function (req, res) {
 
   const result = await hyper.data.list(options)
 
-  console.log('data: list result', result)
+  console.log('data: query result', result)
   return res.send(result)
 }

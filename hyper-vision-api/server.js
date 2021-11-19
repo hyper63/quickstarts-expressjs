@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
   })
 })
 
-const PORT = 3000
+const PORT = 3001
 
 app.listen(PORT, null, () =>
   console.log(`hyper-vision-api is listening on PORT: ${PORT}`),

@@ -73,25 +73,50 @@ Learn how to:
 
 ### Adding Documents
 ```sh
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
 
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-5", "title": "Meatballs", "type": "movie", "year": "1979"}'
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-6", "title": "Matrix", "type": "movie", "year": "1999"}'
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-7", "title": "Usual Suspects", "type": "movie", "year": "1995"}'
-curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-8", "title": "Super Troopers", "type": "movie", "year": "2001"}'
-
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-5", "title": "Meatballs", "type": "movie", "year": "1979"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-6", "title": "Matrix", "type": "movie", "year": "1999"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-7", "title": "Usual Suspects", "type": "movie", "year": "1995"}'
+curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-8", "title": "Super Troopers", "type": "movie", "year": "2001"}'
 ```
 
+### List/Paging Documents
+
+- List all docs
+
+    ```sh
+    curl localhost:3001/api/data
+    ```
+
+- Page 1 (2 docs per page)
+
+    ```sh
+    curl localhost:3001/api/data?limit=2 
+    ```
+
+- Page 2 (2 docs per page)
+
+    ```sh
+    curl localhost:3001/api/data?limit=2&startkey=movie-3
+    ```
+
+- Page 3 (2 docs per page)
+
+    ```sh
+    curl localhost:3001/api/data?limit=2&startkey=movie-5
+    ```
+ç
 ### Querying Documents
 
 ```sh
-curl localhost:3000/api/data/_query?type=movie
-curl localhost:3000/api/data/_query?title=Top%20Gun
-curl localhost:3000/api/data/_query?year=1981
-curl localhost:3000/api/data/_query?year=$lt|1999
-curl localhost:3000/api/data/_query?year=$lt|1999&type=movie
-curl localhost:3000/api/data/_query?year=$gt|1999&type=movie
+curl localhost:3001/api/data/_query?type=movie
+curl localhost:3001/api/data/_query?title=Top%20Gun
+curl localhost:3001/api/data/_query?year=1981
+curl localhost:3001/api/data/_query?year=$lt|1999
+curl localhost:3001/api/data/_query?year=$lt|1999&type=movie
+curl localhost:3001/api/data/_query?year=$gt|1999&type=movie
 ```

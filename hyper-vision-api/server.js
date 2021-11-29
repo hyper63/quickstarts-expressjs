@@ -7,6 +7,7 @@ import updateDataToDB from './api/data/update.js'
 import deleteDataFromDB from './api/data/delete.js'
 import listDataFromDB from './api/data/list.js'
 import queryDataFromDB from './api/data/query.js'
+import queryDataFromCache from './api/cache/query.js'
 import listDataDocTypes from './api/data/list-data-doc-types.js'
 const app = express()
 
@@ -22,6 +23,8 @@ app.post('/api/data', addDataToDB)
 app.get('/api/data/:id', getDataFromDB)
 app.put('/api/data/:id', updateDataToDB)
 app.delete('/api/data/:id', deleteDataFromDB)
+
+app.get('/api/cache/_query', queryDataFromCache)
 
 app.get('/', function (req, res) {
   res.send({

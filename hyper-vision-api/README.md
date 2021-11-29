@@ -68,20 +68,37 @@ Learn how to:
     {"name":"Hyper Vision API","ok":true}
     ```
 
-## Sample Data Curl Commands
+## Populating the Data Service with Movies and Actors
 
 
-### Adding Documents
+### Adding Movie Documents
+
 ```sh
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
 
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-5", "title": "Meatballs", "type": "movie", "year": "1979"}'
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-6", "title": "Matrix", "type": "movie", "year": "1999"}'
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-7", "title": "Usual Suspects", "type": "movie", "year": "1995"}'
-curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"id": "movie-8", "title": "Super Troopers", "type": "movie", "year": "2001"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-5", "title": "Meatballs", "type": "movie", "year": "1979"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-6", "title": "Matrix", "type": "movie", "year": "1999"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-7", "title": "Usual Suspects", "type": "movie", "year": "1995"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-8", "title": "Super Troopers", "type": "movie", "year": "2001"}'
+
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{ "id": "movie-11","title": "Step Brothers","type": "movie","year": "2008"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-13","title": "Inception","type": "movie","year": "2010"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "movie-14","title": "Stir Crazy","type": "movie","year": "1980"}'
+```
+
+### Adding Actor Documents
+
+```sh
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-bill-murray", "name": "Bill Murray", "type": "actor", "born": "1950"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-tom-cruise", "name": "Tom Cruise", "type": "actor", "born": "1962"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-kevin-bacon", "name": "Kevin Bacon", "type": "actor", "born": "1958"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-keanu-reeves", "name": "Keanu Reeves", "type": "actor", "born": "1964"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-kevin-spacey", "name": "Kevin Spacey", "type": "actor", "born": "1959"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-gene-wilder", "name": "Gene Wilder", "type": "actor", "born": "1933"}'
+curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"id": "actor-leonardo-dicaprio", "name": "Leonardo Dicaprio", "type": "actor", "born": "1974"}'
 ```
 
 ### List/Paging Documents
@@ -89,34 +106,34 @@ curl -X POST localhost:3001/api/data -H 'Content-Type: application/json' -d '{"i
 - List all docs
 
     ```sh
-    curl localhost:3001/api/data
+    curl localhost:3000/api/data
     ```
 
 - Page 1 (2 docs per page)
 
     ```sh
-    curl localhost:3001/api/data?limit=2 
+    curl localhost:3000/api/data?limit=2 
     ```
 
 - Page 2 (2 docs per page)
 
     ```sh
-    curl localhost:3001/api/data?limit=2&startkey=movie-3
+    curl localhost:3000/api/data?limit=2&startkey=movie-3
     ```
 
 - Page 3 (2 docs per page)
 
     ```sh
-    curl localhost:3001/api/data?limit=2&startkey=movie-5
+    curl localhost:3000/api/data?limit=2&startkey=movie-5
     ```
 ç
 ### Querying Documents
 
 ```sh
-curl localhost:3001/api/data/_query?type=movie
-curl localhost:3001/api/data/_query?title=Top%20Gun
-curl localhost:3001/api/data/_query?year=1981
-curl localhost:3001/api/data/_query?year=$lt|1999
-curl localhost:3001/api/data/_query?year=$lt|1999&type=movie
-curl localhost:3001/api/data/_query?year=$gt|1999&type=movie
+curl localhost:3000/api/data/_query?type=movie
+curl localhost:3000/api/data/_query?title=Top%20Gun
+curl localhost:3000/api/data/_query?year=1981
+curl localhost:3000/api/data/_query?year=$lt|1999
+curl localhost:3000/api/data/_query?year=$lt|1999&type=movie
+curl localhost:3000/api/data/_query?year=$gt|1999&type=movie
 ```

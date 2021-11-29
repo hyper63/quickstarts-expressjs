@@ -16,14 +16,16 @@ descending - {true|false} - determines the order of the list sorted on the 'id' 
 */
 
 export default async function (req, res) {
-  //console.log('req.query', req.query)
+  console.log('req.query', req.query)
   const limit = getReqQueryLimit(req)
   //console.log('limit', limit)
+  
+  const docType = getReqQueryParam('docType', null, req)
 
   const startkey = getReqQueryParam('startkey', null, req)
   //console.log('startkey', startkey)
 
-  const options = createRequestOptions({ limit, startkey })
+  const options = createRequestOptions({ limit, startkey, docType })
 
   console.log('data: list: options', options)
   console.log('data: list: req.query', req.query)

@@ -7,7 +7,7 @@ import updateDataToDB from './api/data/update.js'
 import deleteDataFromDB from './api/data/delete.js'
 import listDataFromDB from './api/data/list.js'
 import queryDataFromDB from './api/data/query.js'
-
+import listDataDocTypes from './api/data/list-data-doc-types.js'
 const app = express()
 
 app.use(cors())
@@ -15,6 +15,7 @@ app.use(express.json())
 
 // app.get('/api/books/_search', searchByAuthor)
 
+app.get('/api/data/doctypes', listDataDocTypes)
 app.get('/api/data', listDataFromDB)
 app.get('/api/data/_query', queryDataFromDB)
 app.post('/api/data', addDataToDB)

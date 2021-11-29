@@ -1,5 +1,5 @@
 import { connect } from 'hyper-connect'
-import { map, contains, head, split, last, keys } from 'ramda'
+import { map, contains, mergeAll, head, split, last, keys, omit, pick, mergeLeft, prop, compose, ifElse, has, identity } from 'ramda'
 // import { getReqQueryLimit } from '../../lib/get-req-query-limit.js'
 // import { getReqQueryParam } from '../../lib/get-req-query-param.js'
 // import { createRequestOptions } from '../../lib/create-req-options.js'
@@ -17,34 +17,53 @@ descending - {true|false} - determines the order of the list sorted on the 'id' 
 */
 
 export default async function (req, res) {
-  console.log('req.query', req.query)
+  console.log('query.js req.query', req.query)
 
   const queryString = req.query
 
-  // map query string into optios
-  // ?year=$gt|1984&type=movie
-  // queryString =  { year: '$gt|1984', type: 'movie' } is mapped to the const options:
-  // const options = { year: { $gt: '1984'}, type: 'movie'}
-  const options = head(
-    map(
-      (k) =>
-        contains('|', queryString[k])
-          ? {
-              [k]: {
-                [head(split('|', queryString[k]))]: last(
-                  split('|', queryString[k]),
-                ),
-              },
-            }
-          : { [k]: queryString[k] },
-      keys(queryString),
-    ),
+  // map query string into selector and options
+  // ?id=$gte|movie-13&type=movie
+  // ?type=movie&limit=6
+  // ?id=$gte|movie-2&type=movie&limit=3
+  // req.query { id: '$gte|movie-2', type: 'movie', limit: '3' }
+  // is transformed to a selector object --> { id: { '$gte': 'movie-2' }, type: 'movie' } 
+  //  and an options object --> { limit: 3 }
+  const preOptions = mergeAll( map(
+    (k) =>
+      contains('|', queryString[k])
+        ? {
+            [k]: {
+              [head(split('|', queryString[k]))]: last(
+                split('|', queryString[k]),
+              ),
+            },
+          }
+        : { [k]: queryString[k] },
+    keys(queryString),
   )
+)
 
-  console.log('data: query: options', options)
+const selector = omit(['limit'], preOptions)
+// const options = pick(['limit'], preOptions)
+// const options = mergeLeft( {limit: parseInt(prop("limit", options),10)}, pick(['limit'], preOptions) )
 
-  const result = await hyper.data.query(options)
+  // console.log('data: query: options', options)
+  console.log('calling query...')
+  //const result = await hyper.data.query({},{ limit: 5 } )
+//{"type":"movie","id":{"gte":"movie-5"}},"options":{"limit":"5"}
+  
+  //const options = { limit: 5 }
+  const options = compose(
+  
+    ifElse(has('limit'),(x) => mergeLeft({limit: parseInt(prop("limit", x),10)},x), identity ),
+    pick(['limit'])
+  )(preOptions)
+  
+  //const selector = { type: "movie", id: {$gte:"movie-2"}}
+  //const selector = {}
 
+  console.log('hyper.data.query(selector, options) -->', selector, options)
+  const result = await hyper.data.query(selector, options)
   console.log('data: query result', result)
   return res.send(result)
 }

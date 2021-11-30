@@ -132,8 +132,79 @@ curl -X POST localhost:3000/api/data -H 'Content-Type: application/json' -d '{"i
 ```sh
 curl localhost:3000/api/data/_query?type=movie
 curl localhost:3000/api/data/_query?title=Top%20Gun
-curl localhost:3000/api/data/_query?year=1981
-curl localhost:3000/api/data/_query?year=$lt|1999
-curl localhost:3000/api/data/_query?year=$lt|1999&type=movie
-curl localhost:3000/api/data/_query?year=$gt|1999&type=movie
+
+curl localhost:3000/api/data/_query? TODO
+
+```
+
+## Populating the Cache Service with Movies and Actors
+
+Since each cached item is specific to the needs of your application, there's not a good way to do this with the hyper-vision-api.  Therefore, let's manually add some sample cache items directly through the hyper REST api. Your cache items will vary to accommodate your app's requirements.  
+
+### Add Movies into the cache default service
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "movie-1-1984", "value": {"id": "movie-1", "title": "Ghostbusters"}, "ttl":"10d"}'
+```
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "movie-2-1986", "value": {"id": "movie-2", "title": "Top Gun"}, "ttl":"10d"}'
+```
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "movie-3-1986", "value": {"id": "movie-3", "title": "Footloose"}, "ttl":"10d"}'
+```
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "movie-4-1981", "value": {"id": "movie-4", "title": "Stripes"}, "ttl":"10d"}'
+```
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "movie-8-2001", "value": {"id": "movie-8", "title": "Super Troopers"}, "ttl":"10d"}'
+```
+
+### Add Actors into the cache default service
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "actor-bill-murray-1950", "value": {"id": "actor-bill-murray", "name": "Bill Murray", "born": "1950"}}'
+```
+
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "actor-tom-cruise-1962", "value": {"id": "actor-tom-cruise", "name": "Tom Cruise", "born": "1962"}}'
+```
+
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "actor-kevin-bacon-1958", "value": {"id": "actor-kevin-bacon", "name": "Kevin Bacon", "born": "1958"}}'
+```
+@@@
+```sh
+curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
+-d '{"key": "actor-keanu-reeves-1964", "value": {"id": "actor-keanu-reeves", "name": "Keanu Reeves", "born": "1964"}}'
 ```

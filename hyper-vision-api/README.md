@@ -208,3 +208,23 @@ curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
 -d '{"key": "actor-keanu-reeves-1964", "value": {"id": "actor-keanu-reeves", "name": "Keanu Reeves", "born": "1964"}}'
 ```
+
+### Updating Movie Document with reviews in the data service
+
+```sh
+curl -X PUT localhost:3000/api/data/movie-1 \
+-H 'Content-Type: application/json' \
+-d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984", "reviews": [{"ratingService": "imdb", "rating": 4}]}'
+
+
+curl -X PUT localhost:3000/api/data/movie-2 \
+-H 'Content-Type: application/json' \
+-d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+
+curl -X PUT localhost:3000/api/data/movie-3 \
+-H 'Content-Type: application/json' \
+-d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+
+curl -X POST localhost:3000/api/data/movie-4 \
+-H 'Content-Type: application/json' \
+-d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'

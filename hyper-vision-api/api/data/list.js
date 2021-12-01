@@ -19,7 +19,7 @@ export default async function (req, res) {
   console.log('req.query', req.query)
   const limit = getReqQueryLimit(req)
   //console.log('limit', limit)
-  
+
   const docType = getReqQueryParam('docType', null, req)
 
   const startkey = getReqQueryParam('startkey', null, req)

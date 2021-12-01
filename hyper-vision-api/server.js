@@ -9,6 +9,9 @@ import listDataFromDB from './api/data/list.js'
 import queryDataFromDB from './api/data/query.js'
 import queryDataFromCache from './api/cache/query.js'
 import listDataDocTypes from './api/data/list-data-doc-types.js'
+import listDataFilterKeys from './api/data/list-data-filter-keys.js'
+import listDataFilterValues from './api/data/list-data-filter-values.js'
+
 const app = express()
 
 app.use(cors())
@@ -16,6 +19,8 @@ app.use(express.json())
 
 // app.get('/api/books/_search', searchByAuthor)
 
+app.get('/api/data/docfiltervalues', listDataFilterValues)
+app.get('/api/data/docfilterkeys', listDataFilterKeys)
 app.get('/api/data/doctypes', listDataDocTypes)
 app.get('/api/data', listDataFromDB)
 app.get('/api/data/_query', queryDataFromDB)

@@ -1,5 +1,5 @@
 import { connect } from 'hyper-connect'
-import { uniq, compose, map, propOr, prop, take } from 'ramda'
+import { uniq, compose, map, propOr, prop, take, reject, equals } from 'ramda'
 
 const hyper = connect(process.env.HYPER)
 
@@ -12,6 +12,8 @@ export default async function (req, res) {
   const docValues = compose(
     (docValues) => ({ ok: true, docs: docValues }),
     take(50),
+    reject(equals(null)),
+    reject(equals(undefined)),
     uniq,
     map(prop(key)),
     propOr([], 'docs'),

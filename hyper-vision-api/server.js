@@ -11,6 +11,8 @@ import queryDataFromCache from './api/cache/query.js'
 import listDataDocTypes from './api/data/list-data-doc-types.js'
 import listDataFilterKeys from './api/data/list-data-filter-keys.js'
 import listDataFilterValues from './api/data/list-data-filter-values.js'
+import addDataToSearch from './api/search/create.js'
+import getDataFromSearch from './api/search/get.js'
 
 const app = express()
 
@@ -30,6 +32,9 @@ app.put('/api/data/:id', updateDataToDB)
 app.delete('/api/data/:id', deleteDataFromDB)
 
 app.get('/api/cache/_query', queryDataFromCache)
+
+app.post('/api/search', addDataToSearch)
+app.get('/api/search/:id', getDataFromSearch)
 
 app.get('/', function (req, res) {
   res.send({

@@ -201,7 +201,7 @@ curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ4YXZodXhyYXVnZnplaWZvZ2dhbWcyZnlrbHliMzE1MyIsImlhdCI6MTYzODI4MDEwN30.QAebFgPCfirvWWM1Dbx0ZJrRUwMxTmJhU5c3Og3LSs0' \
 -d '{"key": "actor-kevin-bacon-1958", "value": {"id": "actor-kevin-bacon", "name": "Kevin Bacon", "born": "1958"}}'
 ```
-@@@
+
 ```sh
 curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
 -H 'Content-Type: application/json' \
@@ -215,16 +215,20 @@ curl -X POST https://cloud.hyper.io/app-lightseagreen-lightning/cache/default \
 curl -X PUT localhost:3000/api/data/movie-1 \
 -H 'Content-Type: application/json' \
 -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984", "reviews": [{"ratingService": "imdb", "rating": 4}]}'
+```
 
+### Adding Docs to Search instance named 'movie-year'
 
-curl -X PUT localhost:3000/api/data/movie-2 \
--H 'Content-Type: application/json' \
--d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+```sh
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
+```
 
-curl -X PUT localhost:3000/api/data/movie-3 \
--H 'Content-Type: application/json' \
--d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+### Getting Search Docs
 
-curl -X POST localhost:3000/api/data/movie-4 \
--H 'Content-Type: application/json' \
--d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
+```sh
+curl localhost:3000/api/search/movie-1?serviceinstancename=movie-year 
+```
+

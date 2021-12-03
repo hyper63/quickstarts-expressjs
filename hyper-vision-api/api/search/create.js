@@ -1,10 +1,15 @@
 import { connect } from 'hyper-connect'
-import {pathOr} from 'ramda'
+import { pathOr } from 'ramda'
+
+// docs: https://docs.hyper.io/cloud/add-document-to-search-index
 
 export default async function (req, res) {
-  
   // connecting to any service type named by the 'serviceinstancename' query string
-  const serviceinstancename = pathOr('default', ['query', 'serviceinstancename'], req)
+  const serviceinstancename = pathOr(
+    'default',
+    ['query', 'serviceinstancename'],
+    req,
+  )
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
   const doc = req.body

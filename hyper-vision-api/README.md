@@ -226,9 +226,31 @@ curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Conten
 curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
 ```
 
+### Adding Docs to Search instance named 'default'
+```sh
+curl -X POST localhost:3000/api/search -H 'Content-Type: application/json' -d '{"id": "movie-1", "title": "Ghostbusters", "type": "movie", "year": "1984"}'
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-2", "title": "Top Gun", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-3", "title": "Footloose", "type": "movie", "year": "1986"}'
+curl -X POST localhost:3000/api/search?serviceinstancename=movie-year -H 'Content-Type: application/json' -d '{"id": "movie-4", "title": "Stripes", "type": "movie", "year": "1981"}'
+```
+
 ### Getting Search Docs
 
 ```sh
 curl localhost:3000/api/search/movie-1?serviceinstancename=movie-year 
 ```
 
+### Delete Search Doc 
+
+```sh
+curl -X DELETE localhost:3000/api/search/movie-1?serviceinstancename=movie-year 
+```
+
+### Query Search Docs
+
+```sh
+curl localhost:3000/api/search/_query?searchtext=footloose&serviceinstancename=movie-year 
+```
+```sh
+curl localhost:3000/api/search/_query?searchtext=footloose
+```

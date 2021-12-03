@@ -13,6 +13,8 @@ import listDataFilterKeys from './api/data/list-data-filter-keys.js'
 import listDataFilterValues from './api/data/list-data-filter-values.js'
 import addDataToSearch from './api/search/create.js'
 import getDataFromSearch from './api/search/get.js'
+import deleteDataFromSearch from './api/search/delete.js'
+import queryDataFromSearch from './api/search/query.js'
 
 const app = express()
 
@@ -33,8 +35,10 @@ app.delete('/api/data/:id', deleteDataFromDB)
 
 app.get('/api/cache/_query', queryDataFromCache)
 
+app.get('/api/search/_query', queryDataFromSearch)
 app.post('/api/search', addDataToSearch)
 app.get('/api/search/:id', getDataFromSearch)
+app.delete('/api/search/:id', deleteDataFromSearch)
 
 app.get('/', function (req, res) {
   res.send({

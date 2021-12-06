@@ -26,7 +26,9 @@ export default async function (req, res) {
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
   const limit = req.query.limit || 1000
-  const result = await hyper.data.list({ limit })
+  const result = await hyper.data.list({ limit }).catch((err) => {
+    return { ok: false, err }
+  })
 
   const docs = propOr([], 'docs', result)
 

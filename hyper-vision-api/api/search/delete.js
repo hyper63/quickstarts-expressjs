@@ -11,7 +11,9 @@ export default async function (req, res) {
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
   console.log('search: remove: ', req.params.id)
-  const result = await hyper.search.remove(req.params.id)
+  const result = await hyper.search.remove(req.params.id).catch((err) => {
+    return { ok: false, err }
+  })
   console.log('search: remove result', result)
   return res.send(result)
 }

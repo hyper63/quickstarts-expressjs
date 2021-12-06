@@ -16,7 +16,7 @@ export default async function (req, res) {
 
   console.log('search: get: ', req.params.id)
   const result = await hyper.search.get(req.params.id).catch((err) => {
-    console.log({ err })
+    return { ok: false, err }
   })
   console.log('search: get result', result)
   return res.send(result)

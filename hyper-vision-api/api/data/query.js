@@ -88,7 +88,9 @@ export default async function (req, res) {
   //const selector = {}
 
   console.log('hyper.data.query(selector, options) -->', selector, options)
-  const result = await hyper.data.query(selector, options)
+  const result = await hyper.data.query(selector, options).catch((err) => {
+    return { ok: false, err }
+  })
   console.log('data: query result', result)
   return res.send(result)
 }

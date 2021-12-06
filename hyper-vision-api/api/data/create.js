@@ -13,7 +13,9 @@ export default async function (req, res) {
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
   console.log('data: create', req.body)
-  const result = await hyper.data.add(req.body)
+  const result = await hyper.data.add(req.body).catch((err) => {
+    return { ok: false, err }
+  })
   console.log('data: create result', result)
   return res.send(result)
 }

@@ -12,7 +12,9 @@ export default async function (req, res) {
   )
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
-  const result = await hyper.data.list({ limit: 1000 })
+  const result = await hyper.data.list({ limit: 1000 }).catch((err) => {
+    return { ok: false, err }
+  })
 
   const docTypes = compose(
     (docTypes) => ({ ok: true, docs: docTypes }),

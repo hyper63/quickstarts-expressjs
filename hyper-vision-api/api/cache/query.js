@@ -25,7 +25,9 @@ export default async function (req, res) {
   const pattern = pathOr('*', ['query', 'pattern'], req)
   const limit = parseInt(pathOr('10', ['query', 'limit'], req), 10)
 
-  const result = await hyper.cache.query(pattern)
+  const result = await hyper.cache.query(pattern).catch((err) => {
+    return { ok: false, err }
+  })
   const docs = take(limit, propOr([], 'docs', result))
 
   //console.log('data: query result', {...result, docs})

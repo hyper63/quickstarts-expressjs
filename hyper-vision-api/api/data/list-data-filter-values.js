@@ -24,7 +24,9 @@ export default async function (req, res) {
   const key = req.query.key || 'type'
   const limit = req.query.limit || 1000
 
-  const result = await hyper.data.list({ limit })
+  const result = await hyper.data.list({ limit }).catch((err) => {
+    return { ok: false, err }
+  })
 
   const docValues = compose(
     (docValues) => ({ ok: true, docs: docValues }),

@@ -14,7 +14,9 @@ export default async function (req, res) {
 
   const doc = req.body
   console.log('search: create doc:', doc)
-  const result = await hyper.search.add(doc.id, doc)
+  const result = await hyper.search.add(doc.id, doc).catch((err) => {
+    return { ok: false, err }
+  })
   console.log('search: create result', result)
   return res.send(result)
 }

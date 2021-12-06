@@ -38,7 +38,9 @@ export default async function (req, res) {
   console.log('data: list: options', options)
   console.log('data: list: req.query', req.query)
 
-  const result = await hyper.data.list(options)
+  const result = await hyper.data.list(options).catch((err) => {
+    return { ok: false, err }
+  })
 
   console.log('data: query result', result)
   return res.send(result)

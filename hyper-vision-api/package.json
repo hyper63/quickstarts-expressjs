@@ -13,10 +13,12 @@
   },
   "scripts": {
     "start": "nodemon -r dotenv/config server.js",
-    "format": "prettier --write '**/*.{js,ts,tsx}'"
+    "format": "prettier --write '**/*.{js,ts,tsx}'",
+    "lint": "eslint lib api --fix --cache"
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
+    "eslint": "^8.4.0",
     "nodemon": "^2.0.14",
     "prettier": "2.4.1"
   },

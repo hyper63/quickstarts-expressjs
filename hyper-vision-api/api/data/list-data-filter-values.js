@@ -1,24 +1,41 @@
 import { connect } from 'hyper-connect'
-import { uniq, compose, map, propOr, prop, take, reject, equals } from 'ramda'
-
-const hyper = connect(process.env.HYPER)
+import {
+	uniq,
+	compose,
+	map,
+	propOr,
+	prop,
+	take,
+	reject,
+	equals,
+	pathOr,
+} from 'ramda'
 
 export default async function (req, res) {
-  const key = req.query.key || 'type'
-  const limit = req.query.limit || 1000
+	// connecting to any service type named by the 'serviceinstancename' query string.
+	//  Fallback to a service instance name of 'default'
+	const serviceinstancename = pathOr(
+		'default',
+		['query', 'serviceinstancename'],
+		req,
+	)
+	const hyper = connect(process.env.HYPER, serviceinstancename)
 
-  const result = await hyper.data.list({ limit })
+	const key = req.query.key || 'type'
+	const limit = req.query.limit || 1000
 
-  const docValues = compose(
-    (docValues) => ({ ok: true, docs: docValues }),
-    take(50),
-    reject(equals(null)),
-    reject(equals(undefined)),
-    uniq,
-    map(prop(key)),
-    propOr([], 'docs'),
-  )(result)
+	const result = await hyper.data.list({ limit })
 
-  console.log('list-data-filter-values: ', docValues)
-  return res.send(docValues)
+	const docValues = compose(
+		(docValues) => ({ ok: true, docs: docValues }),
+		take(50),
+		reject(equals(null)),
+		reject(equals(undefined)),
+		uniq,
+		map(prop(key)),
+		propOr([], 'docs'),
+	)(result)
+
+	console.log('list-data-filter-values: ', docValues)
+	return res.send(docValues)
 }

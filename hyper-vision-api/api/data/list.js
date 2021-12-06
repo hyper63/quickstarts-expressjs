@@ -2,8 +2,7 @@ import { connect } from 'hyper-connect'
 import { getReqQueryLimit } from '../../lib/get-req-query-limit.js'
 import { getReqQueryParam } from '../../lib/get-req-query-param.js'
 import { createRequestOptions } from '../../lib/create-req-options.js'
-
-const hyper = connect(process.env.HYPER)
+import { pathOr } from 'ramda'
 
 /* docs: https://docs.hyper.io/cloud/list-documents
 Querystring parameters [optional]
@@ -16,22 +15,31 @@ descending - {true|false} - determines the order of the list sorted on the 'id' 
 */
 
 export default async function (req, res) {
-  console.log('req.query', req.query)
-  const limit = getReqQueryLimit(req)
-  //console.log('limit', limit)
+	// connecting to any service type named by the 'serviceinstancename' query string.
+	//  Fallback to a service instance name of 'default'
+	const serviceinstancename = pathOr(
+		'default',
+		['query', 'serviceinstancename'],
+		req,
+	)
+	const hyper = connect(process.env.HYPER, serviceinstancename)
 
-  const docType = getReqQueryParam('docType', null, req)
+	console.log('req.query', req.query)
+	const limit = getReqQueryLimit(req)
+	//console.log('limit', limit)
 
-  const startkey = getReqQueryParam('startkey', null, req)
-  //console.log('startkey', startkey)
+	const docType = getReqQueryParam('docType', null, req)
 
-  const options = createRequestOptions({ limit, startkey, docType })
+	const startkey = getReqQueryParam('startkey', null, req)
+	//console.log('startkey', startkey)
 
-  console.log('data: list: options', options)
-  console.log('data: list: req.query', req.query)
+	const options = createRequestOptions({ limit, startkey, docType })
 
-  const result = await hyper.data.list(options)
+	console.log('data: list: options', options)
+	console.log('data: list: req.query', req.query)
 
-  console.log('data: query result', result)
-  return res.send(result)
+	const result = await hyper.data.list(options)
+
+	console.log('data: query result', result)
+	return res.send(result)
 }

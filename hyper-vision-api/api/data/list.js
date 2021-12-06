@@ -15,31 +15,31 @@ descending - {true|false} - determines the order of the list sorted on the 'id' 
 */
 
 export default async function (req, res) {
-	// connecting to any service type named by the 'serviceinstancename' query string.
-	//  Fallback to a service instance name of 'default'
-	const serviceinstancename = pathOr(
-		'default',
-		['query', 'serviceinstancename'],
-		req,
-	)
-	const hyper = connect(process.env.HYPER, serviceinstancename)
+  // connecting to any service type named by the 'serviceinstancename' query string.
+  //  Fallback to a service instance name of 'default'
+  const serviceinstancename = pathOr(
+    'default',
+    ['query', 'serviceinstancename'],
+    req,
+  )
+  const hyper = connect(process.env.HYPER, serviceinstancename)
 
-	console.log('req.query', req.query)
-	const limit = getReqQueryLimit(req)
-	//console.log('limit', limit)
+  console.log('req.query', req.query)
+  const limit = getReqQueryLimit(req)
+  //console.log('limit', limit)
 
-	const docType = getReqQueryParam('docType', null, req)
+  const docType = getReqQueryParam('docType', null, req)
 
-	const startkey = getReqQueryParam('startkey', null, req)
-	//console.log('startkey', startkey)
+  const startkey = getReqQueryParam('startkey', null, req)
+  //console.log('startkey', startkey)
 
-	const options = createRequestOptions({ limit, startkey, docType })
+  const options = createRequestOptions({ limit, startkey, docType })
 
-	console.log('data: list: options', options)
-	console.log('data: list: req.query', req.query)
+  console.log('data: list: options', options)
+  console.log('data: list: req.query', req.query)
 
-	const result = await hyper.data.list(options)
+  const result = await hyper.data.list(options)
 
-	console.log('data: query result', result)
-	return res.send(result)
+  console.log('data: query result', result)
+  return res.send(result)
 }

@@ -38,8 +38,6 @@ export default async function (req, res) {
   )
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
-  
-
   const queryString = req.query
 
   console.log('req.query queryString', queryString)

@@ -38,10 +38,11 @@ export default async function (req, res) {
   )
   const hyper = connect(process.env.HYPER, serviceinstancename)
 
-  console.log('query.js req.query', req.query)
+  
 
   const queryString = req.query
 
+  console.log('req.query queryString', queryString)
   // map query string into selector and options
   // ?id=$gte|movie-13&type=movie
   // ?type=movie&limit=6
@@ -65,7 +66,7 @@ export default async function (req, res) {
     ),
   )
 
-  const selector = omit(['limit'], preOptions)
+  const selector = omit(['limit', 'serviceinstancename'], preOptions)
   // const options = pick(['limit'], preOptions)
   // const options = mergeLeft( {limit: parseInt(prop("limit", options),10)}, pick(['limit'], preOptions) )
 

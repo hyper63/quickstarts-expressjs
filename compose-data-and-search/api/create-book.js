@@ -23,9 +23,9 @@ const addDocToDB = (doc) => {
 }
 
 const addDocToSearchIndex = (doc) =>
-  hyper.search.add(doc.id, doc).then((res) => {
+  hyper.search.add(doc._id, doc).then((res) => {
     console.log('addDocToSearchIndex res', res)
-    return res.ok ? { ok: true, id: doc.id } : Promise.reject(res)
+    return res.ok ? { ok: true, id: doc._id } : Promise.reject(res)
   })
 
 const errorResponse = (err) => {

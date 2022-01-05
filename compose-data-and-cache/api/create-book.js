@@ -10,7 +10,7 @@ const addDocToDB = (doc) =>
   })
 
 const addDocToCache = (doc) =>
-  hyper.cache.add(doc.id, doc, '1d').then(passValueThru)
+  hyper.cache.add(doc._id, doc, '1d').then(passValueThru)
 
 const errorResponse = (err) => {
   ok: false, err

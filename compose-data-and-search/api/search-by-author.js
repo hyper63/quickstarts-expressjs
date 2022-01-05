@@ -1,5 +1,5 @@
 import { connect } from 'hyper-connect'
-import { pathOr, length, prop, toLower, map, take } from 'ramda'
+import { pathOr, length } from 'ramda'
 
 const hyper = connect(process.env.HYPER)
 

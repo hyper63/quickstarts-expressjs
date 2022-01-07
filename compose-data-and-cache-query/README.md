@@ -74,55 +74,55 @@ Using curl, make several calls to the `POST /api/books` endpoint to create some 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-1","type":"book", "name":"War and Peace","author":"Leo Tolstoy","published":"1869" }'
+-d '{ "_id":"book-1","type":"book", "name":"War and Peace","author":"Leo Tolstoy","published":"1869" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-2","type":"book","name":"The Great Gatsby","author":"F. Scott Fitzgerald","published":"1925" }'
+-d '{ "_id":"book-2","type":"book","name":"The Great Gatsby","author":"F. Scott Fitzgerald","published":"1925" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1965" }'
+-d '{ "_id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1965" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1998" }'
+-d '{ "_id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1998" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-5","type":"book","name":"A Separate Peace","author":"John Knowles","published":"1965" }'
+-d '{ "_id":"book-5","type":"book","name":"A Separate Peace","author":"John Knowles","published":"1965" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-6","type":"book","name":"Watership Down","author":"Richard Adams","published":"1972" }'
+-d '{ "_id":"book-6","type":"book","name":"Watership Down","author":"Richard Adams","published":"1972" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-7","type":"book","name":"The Hunt for Red October","author":"Tom Clancy","published":"1984" }'
+-d '{ "_id":"book-7","type":"book","name":"The Hunt for Red October","author":"Tom Clancy","published":"1984" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-8","type":"book","name":"Patriot Games","author":"Tom Clancy","published":"1987" }'
+-d '{ "_id":"book-8","type":"book","name":"Patriot Games","author":"Tom Clancy","published":"1987" }'
 ```
 
 ```sh
 curl -X POST localhost:3000/api/books \
 -H 'Content-Type: application/json' \
--d '{ "id":"book-9","type":"book","name":"Clear and Present Danger","author":"Tom Clancy","published":"1989" }'
+-d '{ "_id":"book-9","type":"book","name":"Clear and Present Danger","author":"Tom Clancy","published":"1989" }'
 ```
 
 ## Query Books
@@ -172,7 +172,7 @@ Make a call to the `PUT /api/books/book-4` endpoint to update the `published` da
 ```sh
 curl -X PUT localhost:3000/api/books/book-4 \ 
 -H 'Content-Type: application/json' \
--d '{ "id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1997" }'
+-d '{ "_id":"book-4","type":"book","name":"Cold Mountain","author":"Charles Frazier","published":"1997" }'
 ```
 
 ## Delete a book

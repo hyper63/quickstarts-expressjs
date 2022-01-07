@@ -22,17 +22,17 @@ const addDocToDB = (doc) =>
     console.log('addDocToDB res', res)
 
     // => { ok: true, id: 'book-5' }
-    return res.ok ? { ok: true, id: doc.id } : Promise.reject(res)
+    return res.ok ? { ok: true, id: doc._id } : Promise.reject(res)
   })
 
 const addDocToCache = (doc) =>
-  hyper.cache.add(doc.id, doc).then((res) => {
+  hyper.cache.add(doc._id, doc).then((res) => {
     console.log('addDocToCache res', res)
     return res.ok ? doc : Promise.reject(res)
   })
 
 const addAuthorBookDocToCache = (doc) =>
-  hyper.cache.add(`author-${slug(doc.author)}-${doc.id}`, doc)
+  hyper.cache.add(`author-${slug(doc.author)}-${doc._id}`, doc)
     .then((res) => {
       console.log('addAuthorBookDocToCache res', res)
       return res.ok ? doc : Promise.reject(res)
@@ -64,7 +64,7 @@ const cacheAdd = (doc) =>
     .then(addAuthorBookDocToCache)
     .then(addDocToCache)
     .then(incrementCacheBookCount)
-    .then(() => ({ ok: true, id: doc.id }))
+    .then(() => ({ ok: true, id: doc._id }))
     .catch(errorResponse)
 
 export default async function (req, res) {

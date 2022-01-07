@@ -4,13 +4,13 @@ const hyper = connect(process.env.HYPER)
 const passValueThru = (x) => x
 
 const updateDocToDB = (doc) =>
-  hyper.data.update(doc.id, doc).then((res) => {
+  hyper.data.update(doc._id, doc).then((res) => {
     console.log('updateDocToDB res', res)
     return res.ok ? doc : Promise.reject(res)
   })
 
 const updateDocToCache = (doc) =>
-  hyper.cache.set(doc.id, doc).then(passValueThru)
+  hyper.cache.set(doc._id, doc).then(passValueThru)
 
 const errorResponse = (err) => {
   ok: false, err

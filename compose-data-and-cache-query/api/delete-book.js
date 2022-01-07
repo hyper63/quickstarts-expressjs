@@ -33,7 +33,7 @@ const deleteDocFromDB = (id) =>
   })
 
 const deleteQueryDocFromCache = (doc) =>
-  hyper.cache.remove(`author-${slug(doc.author)}-${doc.id}`)
+  hyper.cache.remove(`author-${slug(doc.author)}-${doc._id}`)
 
 const deleteDocFromCache = (id) => hyper.cache.remove(id)
 

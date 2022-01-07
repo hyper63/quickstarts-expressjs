@@ -16,11 +16,11 @@ const errorResponse = (err) => {
 const addDocToDB = (doc) =>
   hyper.data.add(doc).then((res) => {
     console.log('addDocToDB res', res)
-    return res.ok ? { ok: true, id: doc.id } : Promise.reject(res)
+    return res.ok ? { ok: true, id: doc._id } : Promise.reject(res)
   })
 
 const addDocToCache = (doc) =>
-  hyper.cache.add(doc.id, doc, '1d').then((res) => {
+  hyper.cache.add(doc._id, doc, '1d').then((res) => {
     console.log('addDocToCache res', res)
     return res.ok ? doc : Promise.reject(res)
   })
@@ -50,7 +50,7 @@ const cacheAdd = (doc) =>
     .then(always(doc))
     .then(addDocToCache)
     .then(incrementCacheBookCount)
-    .then(() => ({ ok: true, id: doc.id }))
+    .then(() => ({ ok: true, id: doc._id }))
     .catch(errorResponse)
 
 export default async function (req, res) {

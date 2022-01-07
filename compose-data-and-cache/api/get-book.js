@@ -14,7 +14,7 @@ const readFromDB = (id) => hyper.data.get(id)
 
 const isDocCached = (id) =>
   hyper.cache.get(id).then((result) => {
-    const isDocInCache = result.id === id
+    const isDocInCache = result._id === id
     console.log(`retrieved doc ${id} from cache? ${isDocInCache}`)
     console.log('isDocCached result', result)
     return result.ok === false ? Promise.reject(id) : result

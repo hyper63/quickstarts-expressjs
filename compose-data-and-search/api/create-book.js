@@ -3,7 +3,7 @@ import { connect } from 'hyper-connect'
 // connecting to any service type named 'default'
 const hyper = connect(process.env.HYPER)
 
-console.log('process.env.HYPER', process.env.HYPER)
+//console.log('process.env.HYPER', process.env.HYPER)
 // Connecting to service instances named 'author'.
 // Note the second argument in the call to the connect function
 //const hyperAuthorSearch =  connect(process.env.HYPER, "author")

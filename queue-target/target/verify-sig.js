@@ -4,6 +4,12 @@ const fiveMins = 5 * 60 * 1000
 const secret = process.env['WORKER_SECRET']
 
 export default function (req, res, next) {
+
+  // no x-hyper-signature header
+  if (!req.headers['x-hyper-signature']) {
+    return res.status(401).send('Unauthorized')
+  }  
+
   const [timepart, sigpart] = req.headers['x-hyper-signature'].split(',')
 
   const [, time] = timepart.split('t=')
@@ -16,7 +22,7 @@ export default function (req, res, next) {
 
   // payload or time signature was tampered with
   if (computed !== sig) {
-    return res.setStatus(401).send('Unauthorized')
+    return res.status(401).send('Unauthorized')
   }
 
   const now = new Date().getTime()
@@ -25,7 +31,7 @@ export default function (req, res, next) {
 
   // timestamp in the future, or not within 5 minutes
   if (diff < 0 || diff > fiveMins) {
-    return res.setStatus(422).send('Timestamp not within acceptable range')
+    return res.status(422).send('Timestamp not within acceptable range')
   }
 
   // continue

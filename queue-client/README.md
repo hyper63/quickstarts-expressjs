@@ -33,7 +33,7 @@ This quickstart involves two separate APIs:  the **queue-client** folder contain
 
 your client --> queue-client API --> hyper-connect.queue.enqueue --> hyper queue  --> queue-target API --> your client
 
-### Setup Part 1: Setting a hyper app connection string to the **queue-client** API.
+### Setup Step 1: Setting a hyper app connection string to the **queue-client** API.
 
 You'll need a hyper cloud app and app key for your queue-client API who's job will be to accept a HTTP request and then send (enqueue) a message to hyper queue. 
 
@@ -57,15 +57,7 @@ You'll need a hyper cloud app and app key for your queue-client API who's job wi
     yarn
     ```
 
-### Setup Part 2: Setting up the **queue-target** API
-
-## Setup: Adding a queue service instance to your hyper app
-
-- Once the hyper app has been provisioned, open the hyper app, select the **Queue** tab, and [create a queue service](https://docs.hyper.io/cloud/adding-a-queue-service).  Provide the following values in the **Add Queue Service** form:
-  - Service Name: default
-  - Target URL: The publically available URL to your target API service.
-
-## Start Up
+### Setup Step 2:  Starting up the **queue-client** API
 
 - Within the terminal, ensure you are in the **queue-client** directory.
 - start the API:
@@ -82,74 +74,112 @@ You'll need a hyper cloud app and app key for your queue-client API who's job wi
 
     You should see a response like this:
 
-    ```sh
+    ```json
     {
-        "name": "Quickstart Node Express JS Queue",
+        "name": "Quickstart Node Express JS queue-client",
         "ok": true
     }
     ```
 
+**GitPod Instructions**
+
 - If you are using GitPod you should be able to click Remote Explorer within your IDE, select the 3001 port and make it public.  Since the API is now publically addressable,  you can hit the API using a web browser that will be similar to something like this:  https://3001-hyper63-quickstartsexpr-e9zu4mkjvq9.ws-us30.gitpod.io/.  Your URL will be different for your specific GitPod environment.
 
-## Create some books
+### Setup Step 3: Setting up the **queue-target** API
 
-Using curl, make several calls to the `POST /api/books` endpoint to create some books.  Three books are from Frank Herber, author of the Dune series.  The last book is from Dr. Suess.
+The hyper queue service will be configured to POST HTTP messages to the **queue-target** API.  The **queue-target** API responsiblities are to provide a target endpoint that accepts a POST from hyper queue and optionally verify the signature of the incoming HTTP request using the secret configured within the hyper app queue service instance.  
 
+- Create a **.env** file within the **queue-target** directory.
+- Within the **.env** file, create an environment variable named `WORKER_SECRET`. 
+- Set the value of the `WORKER_SECRET` environment variable to a secret of your choosing:
+  
+  ```
+  WORKER_SECRET=[your secret goes here]
+  ```
+- Within the terminal, ensure you are in the **queue-target** directory.
+- Install dependencies 
 
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1965" }'
-```
+    ```sh
+    yarn
+    ```
 
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id": "book-20", "type": "book", "name": "Children of Dune", "author": "Frank Herbert", "published": "1975" }'
-```
+### Setup Step 4: Starting your **queue-target** API
 
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id": "book-21", "type": "book", "name": "Dune Messiah", "author": "Frank Herbert", "published": "1969" }'
-```
+- Within the terminal, ensure you are in the **queue-target** directory.
+- Start the API:
 
-```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
--d '{ "id":"book-22","type":"book","name":"Horton Hears a Who!","author":"Dr. Suess","published":"1955" }'
-```
+    ```sh
+    yarn start
+    ```
 
-## Search Books
+- The API should be running on port 3002.  Run the following curl command in a terminal to verify the API started successfully:
 
-As books are added into the database, entries are made in the search service.  Make a call to retreive books by author from service service.
+    ```sh
+    curl localhost:3002/
+    ```
 
-```sh
-curl localhost:3001/api/books/_search?author=Frank%20Herbert 
-```
+    You should see a response like this:
 
-## Get a book
+    ```json
+    {
+        "name": "Quickstart Node Express JS queue-target",
+        "ok": true
+    }
+    ```
 
-Make a call to the `GET /api/books/book-3` endpoint to retrieve a book:
+### Setup Step 5: Take the **queue-target** API's `POST /target` endpoint for a test drive.
 
-```sh
-curl localhost:3001/api/books/book-3 
-```
+Using curl, submit the following HTTP `POST` request to the `/target` endpoint.  
 
-## Update a book
-
-Make a call to the `PUT /api/books/book-3` endpoint to update the `published` date to `1997`:
-
-```sh
-curl -X PUT localhost:3001/api/books/book-3 \
--H 'Content-Type: application/json' \
--d '{ "id": "book-3", "type": "book", "name": "Dune", "author": "Frank Herbert", "published": "1997" }'
-```
-
-## Delete a book
-
-Make a call to the `DELETE /api/books/book-3` endpoint to delete a book:
+> Since we are omitting the `x-hyper-signature` header, you should receive a `401-Unauthorized` error.  
 
 ```sh
-curl -X DELETE localhost:3001/api/books/book-3
+ curl -X POST localhost:3002/target -H 'Content-Type: application/json' -d '{ "foo": "bar" }'
 ```
+
+**GitPod Instructions**
+
+If you are using GitPod you should be able to click Remote Explorer within your IDE, select the 3002 port and make it public.  Since the API is now publically addressable,  you can hit the API using a URL similar to this:  https://3002-hyper63-quickstartsexpr-e9zu4mkjvq9.ws-us30.gitpod.io/.  Your URL will be different for your specific GitPod environment.
+
+> Since we are omitting the `x-hyper-signature` header, you should receive a `401-Unauthorized` error.  
+
+```sh
+ curl -X POST https://3002-hyper63-quickstartsexpr-e9zu4mkjvq9.ws-us30.gitpod.io/target -H 'Content-Type: application/json' -d '{ "foo": "bar" }'
+```
+
+
+## Setup Part 6: Adding a queue service instance to your hyper app
+
+>  Before proceeding, your **queue-target** API must be publically addressable on the interwebs. If not, the hyper queue service won't be able to locate your target API.
+
+- Assuming you have created your hyper app, open the hyper dashboard, locate your hyper app and select the **Queue** tab, and [create a queue service](https://docs.hyper.io/cloud/adding-a-queue-service).  Provide the following values in the **Add Queue Service** form:
+
+| Field | Desc |
+| ----- | ---- |
+| Service Name | Provide the desired name for your queue service, or except the value: "default". |
+| Target URL  | The publically available URL to your target API service. Example: https://3002-hyper63-quickstartsexpr-e9zu4mkjvq9.ws-us30.gitpod.io/target |
+| Secret | Provide the same value used for the `WORKER_SECRET` environment variable in Setup Step 3. |
+
+
+## The big enchilada
+
+Now it time to submit a request to the **queue-client** API, which will use the `hyper-connect` SDK to send a message to the hyper queue.  Once received, hyper queue will process the job and call the configured **queue-target** API passing along the original payload to the target. 
+
+![Sequence Diagram](./sequence-diagram.png)
+
+
+- In a separate terminal, ensure you are in the **queue-client** directory and start the API via `yarn start`. The **queue-client** API should be available on port 3001.
+- In a separate terminal, ensure you are in the **queue-target** directory and start the API via `yarn start`. The **queue-target** API should be available on port 3002.
+- In a third terminal, run the following command to POST a message to the API.
+
+```sh
+curl -X POST localhost:3001/api/queue -H 'Content-Type: application/json' -d '{ "foo": "bar" }'
+```
+
+If all goes well you should see a response similar to this within the **queue-target** API terminal window (in may take a few seconds to process, initially.):
+
+```json
+post.js body { foo: 'bar' }
+```
+
+Congratulations, you have successfully navigated the hyper queue quickstart.

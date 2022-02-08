@@ -15,7 +15,7 @@ app.post('/api/queue', postToQueue)
 
 app.get('/', function (req, res) {
   res.send({
-    name: 'Quickstart Node Express JS Queue',
+    name: 'Quickstart Node Express JS queue-client',
     ok: true,
   })
 })

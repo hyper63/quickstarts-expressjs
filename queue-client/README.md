@@ -27,46 +27,53 @@ Here's what you need to know:
 
 ## Setup
 
-This quickstart involves two separate APIs:  the **queue-client** folder contains the 'queue client API' that will call hyper queue.  Once the hyper queue service receives a message, it will perform an HTTP POST to the configured queue target API. The **queue-target** folder contains the 'queue target API'.
+This quickstart involves two separate APIs:  the **queue-client** folder contains the 'queue client API' that will send (enqueue) a message to hyper queue.  Once the hyper queue service receives a message, it will perform an HTTP POST to the configured queue target API. The **queue-target** folder contains the 'queue target API'.
+
+> The queue target API must be publically addressable.  We recommend using GitPod for this quickstart as it will enable you to run the target API publically. 
 
 your client --> queue-client API --> hyper-connect.queue.enqueue --> hyper queue  --> queue-target API --> your client
 
+### Setup Part 1: Setting a hyper app connection string to the **queue-client** API.
+
+You'll need a hyper cloud app and app key for your queue-client API who's job will be to accept a HTTP request and then send (enqueue) a message to hyper queue. 
 
 - Go to [https://dashboard.hyper.io](https://dashboard.hyper.io) and sign in with your github account.
-- [Create a hyper cloud application](https://docs.hyper.io/cloud/applications#zl-creating-a-new-hyper-application). You'll have to choose at least one service, so select the hyper Data service and then create the hyper app.
-- Once the hyper app has been provisioned, open the hyper app, select the **Queue** tab, and [create a queue service](https://docs.hyper.io/cloud/adding-a-queue-service).  Provide the following values in the **Add Queue Service** form:
-  - Service Name: default
-  - Target URL: The publically available URL to your target API service.
+- [Create a hyper cloud application](https://docs.hyper.io/cloud/applications#zl-creating-a-new-hyper-application). You'll have to choose at least one service, so select the hyper Data service and then create the hyper app.  
+
+  > We'll add a queue service to the hyper app later, after we know the queue target API public URL address.
+
 - Create a **.env** file within the **queue-client** directory.
 - Within the **.env** file, create an environment variable named `HYPER`. 
-- Copy the [connection string](https://docs.hyper.io/cloud/app-keys#6s-copying-the-key-secret-and-connection-string) and paste it for the value of the `HYPER` environment variable
+- Copy the app key's [connection string](https://docs.hyper.io/cloud/app-keys#6s-copying-the-key-secret-and-connection-string) from the newly created hyper cloud application and paste it for the value of the `HYPER` environment variable:
+
     ```
     HYPER=[connection string here]
     ```
 
-- [Add a search service](https://docs.hyper.io/cloud/adding-a-search-service) and provide the following details within the **Add Search Service** form.  This will create a search service instance named `default` and create an index based on the `author` field.  This way we can search for books by author.  
-
-    | Field           | Value               |
-    |-----------------|---------------------|
-    | Service Name    | default             |
-    | Fields to index | author              |
-    | Fields to store | id, name, published |
-
-- Within the terminal, ensure you are in the **compose-data-and-search** directory.
+- Within the terminal, ensure you are in the **queue-client** directory.
 - Install dependencies 
 
     ```sh
-    npm install
+    yarn
     ```
+
+### Setup Part 2: Setting up the **queue-target** API
+
+## Setup: Adding a queue service instance to your hyper app
+
+- Once the hyper app has been provisioned, open the hyper app, select the **Queue** tab, and [create a queue service](https://docs.hyper.io/cloud/adding-a-queue-service).  Provide the following values in the **Add Queue Service** form:
+  - Service Name: default
+  - Target URL: The publically available URL to your target API service.
 
 ## Start Up
 
-- Within the terminal, ensure you are in the **compose-data-and-search** directory.
+- Within the terminal, ensure you are in the **queue-client** directory.
 - start the API:
 
     ```sh
-    npm start
+    yarn start
     ```
+
 - The API should be running on port 3001.  Run the following curl command in your terminal to verify the API started successfully:
 
     ```sh
@@ -76,8 +83,13 @@ your client --> queue-client API --> hyper-connect.queue.enqueue --> hyper queue
     You should see a response like this:
 
     ```sh
-    {"name":"Quickstart Node Express JS Compose Data and Search","ok":true}
+    {
+        "name": "Quickstart Node Express JS Queue",
+        "ok": true
+    }
     ```
+
+- If you are using GitPod you should be able to click Remote Explorer within your IDE, select the 3001 port and make it public.  Since the API is now publically addressable,  you can hit the API using a web browser that will be similar to something like this:  https://3001-hyper63-quickstartsexpr-e9zu4mkjvq9.ws-us30.gitpod.io/.  Your URL will be different for your specific GitPod environment.
 
 ## Create some books
 

@@ -92,8 +92,8 @@ curl -X POST localhost:3001/api/books \
 ```
 
 ```sh
-curl -X POST localhost:3001/api/books \
--H 'Content-Type: application/json' \
+curl -X POST localhost:3001/api/books \ 
+-H 'Content-Type: application/json' \ 
 -d '{ "id": "book-21", "type": "book", "name": "Dune Messiah", "author": "Frank Herbert", "published": "1969" }'
 ```
 

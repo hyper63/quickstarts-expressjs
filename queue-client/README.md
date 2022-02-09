@@ -31,7 +31,7 @@ This quickstart involves two separate APIs:  the **queue-client** folder contain
 
 > The queue target API must be publically addressable.  We recommend using GitPod for this quickstart as it will enable you to run the target API publically. 
 
-your client --> queue-client API --> hyper-connect.queue.enqueue --> hyper queue  --> queue-target API --> your client
+![Sequence Diagram](./sequence-diagram.png)
 
 ### Setup Step 1: Setting a hyper app connection string to the **queue-client** API.
 

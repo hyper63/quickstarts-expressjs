@@ -11,4 +11,5 @@ The best way to do these quickstarts is to use gitpod.io:
 - [Composing Data and Cache](/compose-data-and-cache)
 - [Composing Data and Cache with Stats](/compose-data-and-cache-stats)
 - [Composing Data and Cache with Query](/compose-data-and-cache-query)
+- [Data and Search](/compose-data-and-search)
 - [Queue](/queue-client)

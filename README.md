@@ -8,8 +8,7 @@ The best way to do these quickstarts is to use gitpod.io:
 
 ## Quickstarts
 
-### Data and Cache
-
 - [Composing Data and Cache](/compose-data-and-cache)
 - [Composing Data and Cache with Stats](/compose-data-and-cache-stats)
 - [Composing Data and Cache with Query](/compose-data-and-cache-query)
+- [Queue](/queue-client)

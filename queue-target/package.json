@@ -1,5 +1,5 @@
 {
-  "name": "quickstart-node-expressjs-search",
+  "name": "quickstart-node-expressjs-queue-target",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",

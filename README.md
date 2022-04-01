@@ -4,7 +4,7 @@ Welcome to hyper expressjs quickstarts.  Each folder contains a complete quickst
 
 The best way to do these quickstarts is to use gitpod.io:
 
-🚀<a href="https://gitpod.io#https://github.com/hyper63/quickstarts-expressjs/tree/master" target="_blank">Launch Workspace</a> 🚀
+🚀 <a href="https://gitpod.io#https://github.com/hyper63/quickstarts-expressjs/tree/master" target="_blank">Launch Workspace</a> 🚀
 
 ## Quickstarts
 
@@ -13,3 +13,4 @@ The best way to do these quickstarts is to use gitpod.io:
 - [Composing Data and Cache with Query](/compose-data-and-cache-query)
 - [Data and Search](/compose-data-and-search)
 - [Queue](/queue-client)
+- [Storage](/storage)

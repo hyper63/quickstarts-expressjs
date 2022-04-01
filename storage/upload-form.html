@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload Image</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        height: 50vh;
+
+        align-items: center;
+        justify-content: center;
+      }
+
+      body {
+        background-color: #2196f3;
+        font-family: source-sans-pro, sans-serif;
+      }
+
+      h1 {
+        margin-left: auto;
+        margin-top: 50px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: 100;
+        font-size: 2.8em;
+        color: #ffffff;
+      }
+
+      h2 {
+        margin-left: auto;
+        margin-top: 10px;
+        margin-bottom: 100px;
+        text-align: center;
+        font-weight: 100;
+        font-size: 2.8em;
+        color: #ffffff;
+      }
+
+      .formButton {
+        background-color: #ffffff;
+        color: #2196f3;
+        font-size: 16px;
+        font-weight: 200;
+        padding: 6px 24px;
+        margin-top: 50px;
+        margin-right: 10px;
+        text-decoration: none;
+      }
+
+      .formButton:hover {
+        background-color: #2196f3;
+        color: #ffffff;
+      }
+
+      /* .formButton:active {
+position:relative;
+top:3px;
+} */
+
+      /*To remove the outline that appears on clicking the input textbox*/
+      input:focus {
+        outline: none;
+      }
+
+      /* To format the placeholder text color */
+      ::-webkit-input-placeholder {
+        color: #ecf0f1;
+      }
+
+      :-moz-placeholder {
+        /* Firefox 18- */
+        color: #ecf0f1;
+      }
+
+      ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: #ecf0f1;
+      }
+
+      :-ms-input-placeholder {
+        color: #ecf0f1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Upload file to hyper storage</h1>
+    <h2>
+      <div class="">
+        <img height="80" width="80" src="/upload.svg" alt="download" />
+      </div>
+    </h2>
+
+    <div class="container">
+      <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input id="”upload”" type="file" name="myFile" required />
+        <input class="formButton" type="submit" value="Submit" />
+      </form>
+    </div>
+  </body>
+</html>

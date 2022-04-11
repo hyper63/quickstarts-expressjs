@@ -93,7 +93,7 @@ Learn how to:
 - Install dependencies and start the app
 
     ```sh
-    yarn install
+    yarn
     yarn start
     ```
 
